@@ -1,0 +1,3 @@
+[submodule "packages/feedbackie"]
+	path = packages/feedbackie
+	url = git@github.com:feedbackie/core.git

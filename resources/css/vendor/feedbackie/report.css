@@ -1,0 +1,113 @@
+.simplemodal__window {
+    background-color: #393939;
+    padding: 30px;
+    max-width: 700px;
+    max-height: 100vh;
+    border-radius: 4px;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+.simplemodal__window h1 {
+    color: white;
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.simplemodal__close {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23fff' stroke='%23fff' stroke-linecap='square' stroke-miterlimit='50' stroke-width='2' d='M22 2L2 22'/%3E%3Cpath fill='none' stroke='%23fff' stroke-linecap='square' stroke-miterlimit='50' stroke-width='2' d='M2 2l20 20'/%3E%3C/svg%3E") !important;
+    background-color: initial !important;
+    background-size: 100% 100% !important;
+}
+
+.simplemodal__close:hover {
+    color: inherit !important;
+    background-color: inherit !important;
+}
+
+.simplemodal__close:focus {
+    color: inherit !important;
+    background-color: inherit !important;
+}
+
+.report-modal-btn {
+    font-size: .875rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+    background-color: black !important;
+    color: white !important;
+    border-radius: .25rem;
+    border-style: none;
+    border-width: 0;
+    cursor: pointer;
+    -webkit-appearance: button;
+    text-transform: none;
+    overflow: visible;
+    line-height: 1.15;
+    margin: 0;
+    will-change: transform;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    transition: -webkit-transform .25s ease-out;
+    transition: transform .25s ease-out;
+    transition: transform .25s ease-out, -webkit-transform .25s ease-out;
+}
+
+.report-modal-btn:focus, .report-modal-btn:hover {
+    -webkit-transform: scale(1.05);
+    transform: scale(1.05);
+}
+
+.simplemodal__btn-primary {
+}
+
+#report-selected-text {
+    background: #f7f8f9;
+    color: black;
+    border: 1px solid #f0f0f0;
+    border-radius: 4px;
+    padding: 6px 12px;
+}
+
+#report-comment {
+    background: #f7f8f9;
+    color: black;
+    border: 1px solid #f0f0f0;
+    border-radius: 0;
+    padding: 10px 15px;
+    max-width: 100%;
+    width: 100%;
+}
+
+.report-form-label {
+    color: white;
+    font-size: inherit;
+}
+
+.simplemodal__btn-close {
+    float: right;
+}
+
+#report-result-message {
+    color: white;
+    text-align: center;
+}
+
+@media all and (max-width: 767px) {
+  .simplemodal__window {
+    padding: 10px !important;
+    font-size: 1rem;
+  }
+  .simplemodal__window h1 {
+    font-size: 1.2rem;
+  }
+  #report-comment, #report-selected-text {
+    padding: 6px 8px;
+    font-size: 1rem;
+  }
+}
