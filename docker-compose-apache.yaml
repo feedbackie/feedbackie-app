@@ -2,15 +2,9 @@ services:
   app:
     restart: always
     init: true
-    image: seriyyy95/feedbackie-oss:latest
+    image: seriyyy95/feedbackie-app:latest
     ports:
       - "80:80"
-    build:
-      context: ./
-      dockerfile: ./docker/apache/Dockerfile
-      args:
-        - USER_ID=${USER_ID:-1000}
-        - GROUP_ID=${GROUP_ID:-1000}
     volumes:
       - ./data/app:/data
     environment:

@@ -10,13 +10,7 @@ services:
   app:
     restart: always
     init: true
-    image: seriyyy95/feedbackie-oss:fpm-latest
-    build:
-      context: ./
-      dockerfile: ./docker/fpm/Dockerfile
-      args:
-        - USER_ID=${USER_ID:-1000}
-        - GROUP_ID=${GROUP_ID:-1000}
+    image: seriyyy95/feedbackie-app:fpm-latest
     volumes:
       - ./data/app:/data
     environment:
