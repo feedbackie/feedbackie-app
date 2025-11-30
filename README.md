@@ -13,6 +13,8 @@ Additionally, the tech industry are constantly evolving and changing so informat
 
 - Website: [feedbackie.app](https://feedbackie.app)
 - DockerHub: [https://hub.docker.com/r/seriyyy95/feedbackie-app](https://hub.docker.com/r/seriyyy95/feedbackie-app)
+- Widgets Demo: [demo](https://feedbackie.app/demo)
+- App Admin Panel Demo: [demo](https://feedbackie.app/app/login?demo=true)
 
 ## Running Using Docker
 
