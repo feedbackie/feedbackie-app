@@ -11,5 +11,5 @@ return [
         'feedbacks_middleware' => [],
     ],
 
-    'asset_url' => asset("build/assets/app.js"),
+    'asset_url' => "build/assets/app.js",
 ];
