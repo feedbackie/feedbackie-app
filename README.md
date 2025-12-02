@@ -9,12 +9,15 @@ No matter how many times we try to proofread written articles, they still contai
 
 Additionally, the tech industry are constantly evolving and changing so information in articles becomes outdated. Using the feedback tool, you can find out which articles need to be rewritten or updated.
 
+Note that the project is currently in Alpha. All features works but some bugs still be found.
+
 ## Links
 
 - Website: [feedbackie.app](https://feedbackie.app)
 - DockerHub: [https://hub.docker.com/r/seriyyy95/feedbackie-app](https://hub.docker.com/r/seriyyy95/feedbackie-app)
 - Widgets Demo: [demo](https://feedbackie.app/demo)
 - App Admin Panel Demo: [demo](https://feedbackie.app/app/login?demo=true)
+- Docs page with short video: [docs](https://feedbackie.app/docs)
 
 ## Running Using Docker
 
