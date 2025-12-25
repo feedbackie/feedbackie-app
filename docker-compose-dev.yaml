@@ -4,10 +4,9 @@ services:
       context: ./
       dockerfile: ./docker/nginx/Dockerfile
     ports:
-      - 80:80
+      - "80:80"
     volumes:
       - ./public:/var/www/public
-      - ./data/app/public:/var/www/public
     depends_on:
       - app
     networks:
@@ -17,6 +16,7 @@ services:
     init: true
     image: seriyyy95/feedbackie-app:fpm-latest
     volumes:
+      - ./:/var/www
       - ./data/app:/data
     environment:
       - APP_ENV=${APP_ENV:-production}
@@ -35,5 +35,4 @@ services:
     networks:
       - default
 networks:
-  default:
-
+    default:

@@ -11,6 +11,8 @@
 /.phpunit.cache
 /.vscode
 /.zed
+/.cache
+/.config
 /auth.json
 /node_modules
 /public/build
@@ -22,3 +24,4 @@
 Homestead.json
 Homestead.yaml
 Thumbs.db
+.bash_history
