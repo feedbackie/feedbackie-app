@@ -64,6 +64,8 @@ services:
             - DB_CONNECTION=pgsql
         depends_on:
             - postgresql
+        networks:
+            - default
     postgresql:
         restart: unless-stopped
         image: postgres:latest
@@ -73,6 +75,10 @@ services:
             - POSTGRES_PASSWORD=${DB_PASSWORD:-password}
         volumes:
             - db-data:/var/lib/postgresql/
+        networks:
+            - default
+networks:
+  default:
 ```
 
 ## Environment Variables
