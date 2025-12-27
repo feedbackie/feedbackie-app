@@ -38,7 +38,11 @@ class CreateAdminUserCommand extends Command
             ->first();
 
         if ($adminUser !== null) {
-            $this->info('Admin user already exists!');
+            $this->info('Admin user already exists, updating credentials...');
+
+            $adminUser->password = $password;
+            $adminUser->save();
+
             return self::SUCCESS;
         }
 

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Database\Factories\UserFactory;
 use Feedbackie\Core\Contracts\UserContract;
 use Feedbackie\Core\Models\Site;
 use Filament\Models\Contracts\FilamentUser;
@@ -13,7 +14,7 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable implements UserContract, FilamentUser
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
+    /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
 
     /**

@@ -1,4 +1,4 @@
-FROM php:8.3-fpm-bookworm
+FROM php:8.3-fpm-trixie
 
 ARG USER_ID=1000
 ARG GROUP_ID=1000
@@ -6,7 +6,7 @@ ARG GROUP_ID=1000
 ENV LD_LIBRARY_PATH=/usr/lib/
 ENV LARAVEL_STORAGE_PATH=/data/storage
 
-RUN apt update && apt install -y $PHPIZE_DEPS libonig-dev libpq-dev libzip-dev libsqlite3-dev libicu-dev bash vim postgresql-client-15 msmtp libwebp-dev libfreetype-dev libjpeg-dev libfcgi-bin ca-certificates supervisor
+RUN apt update && apt install -y $PHPIZE_DEPS libonig-dev libpq-dev libzip-dev libsqlite3-dev libicu-dev bash vim postgresql-client-17 libwebp-dev libfreetype-dev libjpeg-dev libfcgi-bin ca-certificates unzip 7zip git
 
 RUN docker-php-ext-install mbstring pdo pdo_pgsql mysqli zip gd intl pcntl exif
 

@@ -66,7 +66,6 @@ RUN tar -xzf /tmp/feedbackie-core.tar.gz -C /var/www/packages/feedbackie/core --
 RUN cp -rT /var/www/storage /data/storage
 RUN chown -R www-data:www-data /var/www/
 RUN chown -R www-data:www-data /data/storage
-RUN ls -l /data/storage
 
 VOLUME /data
 WORKDIR /var/www/
