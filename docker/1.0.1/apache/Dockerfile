@@ -59,7 +59,7 @@ COPY ./docker/apache/default.conf /etc/apache2/sites-enabled/000-default.conf
 ADD https://github.com/feedbackie/feedbackie-app/archive/refs/tags/1.0.1-alpha.tar.gz /tmp/feedbackie.tar.gz
 RUN tar -xzf /tmp/feedbackie.tar.gz -C /var/www/ --strip-components=1
 
-RUN mkdir /var/www/packages/feedbackie/core
+RUN mkdir -p /var/www/packages/feedbackie/core
 ADD https://github.com/feedbackie/core/archive/refs/tags/1.0.1.tar.gz /tmp/feedbackie-core.tar.gz
 RUN tar -xzf /tmp/feedbackie-core.tar.gz -C /var/www/packages/feedbackie/core --strip-components=1
 

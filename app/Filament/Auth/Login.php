@@ -5,9 +5,7 @@ declare(strict_types=1);
 namespace App\Filament\Auth;
 
 use Filament\Schemas\Schema;
-use Filament\Forms\Components\Component;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Form;
 use Illuminate\Validation\ValidationException;
 
 class Login extends \Filament\Auth\Pages\Login

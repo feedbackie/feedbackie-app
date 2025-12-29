@@ -19,4 +19,7 @@ php artisan migrate --force
 
 php artisan app:deploy
 
+php artisan optimize:clear
+php artisan filament:clear
+
 exec "$@"
