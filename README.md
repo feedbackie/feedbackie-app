@@ -81,6 +81,30 @@ networks:
   default:
 ```
 
+## Development
+
+To start developing the application, you can use the provided `docker-compose.dev.yml` file. It mounts the source code into the container, allowing you to make changes and see them reflected immediately.
+
+First, clone the repository with submodules:
+
+```bash
+git clone --recurse-submodules https://github.com/feedbackie/feedbackie-app.git
+```
+
+Create .env file based on .env.example and adjust environment variables as needed:
+
+```bash
+cp .env.example .env
+```
+
+Then can start the development environment with the following command:
+
+```
+docker-compose -f docker-compose-dev.yml up
+```
+
+The docker-compose.yaml file is aliased as `docker-compose-dev.yml`, so you can use any of them. Most functionality available in separated package named feedbackie/core. You can find it in the `packages/feedbackie/core` directory.
+
 ## Environment Variables
 
 Here are the environment variables you can use to configure the container:

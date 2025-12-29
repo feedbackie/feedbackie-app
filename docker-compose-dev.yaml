@@ -14,24 +14,15 @@ services:
   app:
     restart: always
     init: true
-    image: seriyyy95/feedbackie-app:fpm-latest
+    build:
+      context: ./
+      dockerfile: ./docker/fpm/Dockerfile
     volumes:
       - ./:/var/www
       - ./data/app:/data
     environment:
-      - APP_ENV=${APP_ENV:-production}
-      - APP_KEY=${APP_KEY:-changeme}
       - ADMIN_EMAIL=${ADMIN_EMAIL:-admin@feedbackie.app}
       - ADMIN_PASSWORD=${ADMIN_PASSWORD:-password}
-      - DB_HOST=${DB_HOST:-}
-      - DB_PORT=${DB_PORT:-}
-      - DB_PASSWORD=${DB_PASSWORD:-}
-      - DB_USERNAME=${DB_USERNAME:-}
-      - DB_CONNECTION=${DB_CONNECTION:-sqlite}
-      - MAIL_USER=${SMTP_USER:-}
-      - MAIL_HOST=${SMTP_HOST:-}
-      - MAIL_PORT=${SMTP_PORT:-}
-      - MAIL_PASSWORD=${SMTP_PASSWORD:-}
     networks:
       - default
 networks:
