@@ -56,6 +56,9 @@ RUN a2enmod headers
 
 COPY ./docker/apache/default.conf /etc/apache2/sites-enabled/000-default.conf
 
+RUN mkdir -p /var/www/.config/
+RUN chmod 777 /var/www/.config/
+
 VOLUME /data
 WORKDIR /var/www/
 USER www-data

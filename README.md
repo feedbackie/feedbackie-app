@@ -15,8 +15,6 @@ Note that the project is currently in Alpha. All features works but some bugs st
 
 - Website: [feedbackie.app](https://feedbackie.app)
 - DockerHub: [https://hub.docker.com/r/seriyyy95/feedbackie-app](https://hub.docker.com/r/seriyyy95/feedbackie-app)
-- Widgets Demo: [demo](https://feedbackie.app/demo)
-- App Admin Panel Demo: [demo](https://feedbackie.app/app/login?demo=true)
 - Docs page with short video: [docs](https://feedbackie.app/docs)
 
 ## Running Using Docker
@@ -60,6 +58,7 @@ services:
             - DB_HOST=postgresql
             - DB_PORT=5432
             - DB_PASSWORD=${DB_PASSWORD:-password}
+            - DB_DATABASE=feedbackie_db
             - DB_USERNAME=${DB_USERNAME:-feedbackie-user}
             - DB_CONNECTION=pgsql
         depends_on:
@@ -83,7 +82,7 @@ networks:
 
 ## Development
 
-To start developing the application, you can use the provided `docker-compose.dev.yml` file. It mounts the source code into the container, allowing you to make changes and see them reflected immediately.
+To start developing the application, you can use the provided `docker-compose.yml` file. It mounts the source code into the container, allowing you to make changes and see them reflected immediately.
 
 First, clone the repository with submodules:
 
@@ -100,10 +99,10 @@ cp .env.example .env
 Then can start the development environment with the following command:
 
 ```
-docker-compose -f docker-compose-dev.yml up
+docker-compose -f docker-compose.yml up
 ```
 
-The docker-compose.yaml file is aliased as `docker-compose-dev.yml`, so you can use any of them. Most functionality available in separated package named feedbackie/core. You can find it in the `packages/feedbackie/core` directory.
+Most functionality available in separated package named feedbackie/core. You can find it in the `packages/feedbackie/core` directory.
 
 ## Environment Variables
 

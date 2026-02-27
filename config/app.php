@@ -1,5 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
+use App\Configuration\SecretsConfiguration;
+
 return [
 
     /*
@@ -29,8 +33,8 @@ return [
     'env' => env('APP_ENV', 'production'),
 
     'admin' => [
-        'email' => env('ADMIN_EMAIL', 'admin@feedbackie.app'),
-        'password' => env('ADMIN_PASSWORD', 'password'),
+        'email' => SecretsConfiguration::readFromEnvOrSecret('ADMIN_EMAIL', 'admin@feedbackie.app'),
+        'password' => SecretsConfiguration::readFromEnvOrSecret('ADMIN_PASSWORD', 'password'),
     ],
 
     /*
