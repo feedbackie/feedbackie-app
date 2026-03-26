@@ -15,7 +15,6 @@ Note that the project is currently in Alpha. All features works but some bugs st
 
 - Website: [feedbackie.app](https://feedbackie.app)
 - DockerHub: [https://hub.docker.com/r/seriyyy95/feedbackie-app](https://hub.docker.com/r/seriyyy95/feedbackie-app)
-- Docs page with short video: [docs](https://feedbackie.app/docs)
 
 ## Running Using Docker
 
