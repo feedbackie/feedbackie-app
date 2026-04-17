@@ -26,7 +26,7 @@ class DeployCommand extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(): int
     {
         $adminsCount = User::query()
             ->where('is_super_admin', true)

@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Configuration\EncryptionConfiguration;
 use App\Configuration\SecretsConfiguration;
 
 return [
@@ -33,6 +34,7 @@ return [
     'env' => env('APP_ENV', 'production'),
 
     'admin' => [
+        'path' => env('ADMIN_PATH', 'app'),
         'email' => SecretsConfiguration::readFromEnvOrSecret('ADMIN_EMAIL', 'admin@feedbackie.app'),
         'password' => SecretsConfiguration::readFromEnvOrSecret('ADMIN_PASSWORD', 'password'),
     ],
@@ -104,9 +106,9 @@ return [
     |
     */
 
-    'cipher' => App\Configuration\EncryptionConfiguration::getCipher(),
-    'key' => App\Configuration\EncryptionConfiguration::loadEncryptionKey(),
-    'previous_keys' => App\Configuration\EncryptionConfiguration::loadPreviousKeys(),
+    'cipher' => EncryptionConfiguration::getCipher(),
+    'key' => EncryptionConfiguration::loadEncryptionKey(),
+    'previous_keys' => EncryptionConfiguration::loadPreviousKeys(),
 
     /*
     |--------------------------------------------------------------------------

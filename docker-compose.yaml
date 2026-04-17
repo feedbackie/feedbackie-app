@@ -10,11 +10,13 @@ services:
     volumes:
       - ./:/var/www
       - ./data/app:/data
+      - ./data/cache:/var/cache/veloserve
     environment:
       - APP_ENV=${APP_ENV:-production}
       - APP_KEY=${APP_KEY:-changeme}
       - ADMIN_EMAIL=${ADMIN_EMAIL:-admin@feedbackie.app}
       - ADMIN_PASSWORD=${ADMIN_PASSWORD:-password}
+      - ADMIN_PATH=${ADMIN_PATH:-admin}
       - DB_HOST=${DB_HOST:-}
       - DB_PORT=${DB_PORT:-}
       - DB_PASSWORD=${DB_PASSWORD:-}

@@ -13,7 +13,7 @@ class SiteHealthTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function testSiteHealthCheckWorks()
+    public function testSiteHealthCheckWorks(): void
     {
         $user = User::factory()->create();
         $site = Site::factory()->for($user)->create();

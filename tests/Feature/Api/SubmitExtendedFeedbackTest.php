@@ -15,7 +15,7 @@ class SubmitExtendedFeedbackTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function testSubmitExtendedFeedbackWorks()
+    public function testSubmitExtendedFeedbackWorks(): void
     {
         $user = User::factory()
             ->create();
@@ -34,7 +34,7 @@ class SubmitExtendedFeedbackTest extends TestCase
         $comment = fake()->realText(500);
         $score = (string)rand(0, 4);
 
-        $options = array_map(function ($option) {
+        $options = array_map(function (FeedbackOptions $option) {
             return $option->value;
         }, FeedbackOptions::cases());
 
@@ -54,7 +54,7 @@ class SubmitExtendedFeedbackTest extends TestCase
         ]);
     }
 
-    public function testSubmitExtendedFeedbackWorksWithoutScore()
+    public function testSubmitExtendedFeedbackWorksWithoutScore(): void
     {
         $user = User::factory()
             ->create();
@@ -71,7 +71,7 @@ class SubmitExtendedFeedbackTest extends TestCase
 
         $comment = fake()->realText(500);
 
-        $options = array_map(function ($option) {
+        $options = array_map(function (FeedbackOptions $option) {
             return $option->value;
         }, FeedbackOptions::cases());
 
@@ -91,7 +91,7 @@ class SubmitExtendedFeedbackTest extends TestCase
         ]);
     }
 
-    public function testSubmitExtendedFeedbackWorksWithLanguageScoreZero()
+    public function testSubmitExtendedFeedbackWorksWithLanguageScoreZero(): void
     {
         $user = User::factory()
             ->create();
@@ -108,7 +108,7 @@ class SubmitExtendedFeedbackTest extends TestCase
 
         $comment = fake()->realText(500);
 
-        $options = array_map(function ($option) {
+        $options = array_map(function (FeedbackOptions $option) {
             return $option->value;
         }, FeedbackOptions::cases());
 
@@ -128,7 +128,7 @@ class SubmitExtendedFeedbackTest extends TestCase
         ]);
     }
 
-    public function testSubmitExtendedFeedbackWorksWithoutComment()
+    public function testSubmitExtendedFeedbackWorksWithoutComment(): void
     {
         $user = User::factory()
             ->create();
@@ -143,7 +143,7 @@ class SubmitExtendedFeedbackTest extends TestCase
             ->for($user)
             ->create();
 
-        $options = array_map(function ($option) {
+        $options = array_map(function (FeedbackOptions $option) {
             return $option->value;
         }, FeedbackOptions::cases());
 

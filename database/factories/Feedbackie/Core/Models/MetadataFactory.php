@@ -9,7 +9,7 @@ use foroco\BrowserDetection;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Metadata>
+ * @extends Factory<\App\Models\Metadata>
  */
 class MetadataFactory extends Factory
 {

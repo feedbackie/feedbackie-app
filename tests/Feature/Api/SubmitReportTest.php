@@ -14,7 +14,7 @@ class SubmitReportTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function testSubmitReportWorks()
+    public function testSubmitReportWorks(): void
     {
         $user = User::factory()
             ->create();
@@ -63,7 +63,7 @@ class SubmitReportTest extends TestCase
         ]);
     }
 
-    public function testSubmitReportWorksWithoutTexts()
+    public function testSubmitReportWorksWithoutTexts(): void
     {
         $user = User::factory()
             ->create();

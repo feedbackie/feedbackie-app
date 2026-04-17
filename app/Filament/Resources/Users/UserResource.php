@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Users;
 
+use BackedEnum;
 use Filament\Schemas\Schema;
 use Filament\Actions\EditAction;
 use App\Filament\Resources\Users\Pages\ListUsers;
@@ -25,7 +26,7 @@ class UserResource extends Resource
 {
     protected static ?string $model = User::class;
 
-    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static string | BackedEnum | null $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Schema $schema): Schema
     {
@@ -46,19 +47,19 @@ class UserResource extends Resource
                     ->label(__('labels.users.password'))
                     ->confirmed()
                     ->password()
-                    ->required(function (string $operation) {
+                    ->required(function (string $operation): bool {
                         return $operation === 'create';
                     })
-                    ->dehydrateStateUsing(function ($state) {
+                    ->dehydrateStateUsing(function ($state): string {
                         return bcrypt($state);
                     })
-                    ->dehydrated(function ($state) {
+                    ->dehydrated(function ($state): bool {
                         return filled($state);
                     }),
                 TextInput::make('password_confirmation')
                     ->label(__('labels.users.password_confirmation'))
                     ->password()
-                    ->required(function (string $operation) {
+                    ->required(function (string $operation): bool {
                         return $operation === 'create';
                     })
             ]);
@@ -81,7 +82,7 @@ class UserResource extends Resource
             ->recordActions([
                 EditAction::make(),
                 \Filament\Actions\DeleteAction::make()
-                    ->before(function (User $record, \Filament\Actions\DeleteAction $action) {
+                    ->before(function (User $record, \Filament\Actions\DeleteAction $action): void {
                         if ($record->sites()->count() > 0) {
                             Notification::make()
                                 ->danger()

@@ -15,7 +15,7 @@ class SubmitFeedbackTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function testSubmitFeedbackYesWorks()
+    public function testSubmitFeedbackYesWorks(): void
     {
         $user = User::factory()
             ->create();
@@ -45,7 +45,7 @@ class SubmitFeedbackTest extends TestCase
 
     }
 
-    public function testSubmitFeedbackNoWorks()
+    public function testSubmitFeedbackNoWorks(): void
     {
         $user = User::factory()
             ->create();
@@ -84,7 +84,7 @@ class SubmitFeedbackTest extends TestCase
         ]);
     }
 
-    public function testSubmitFeedbackAnythingDoesNotWork()
+    public function testSubmitFeedbackAnythingDoesNotWork(): void
     {
         $user = User::factory()
             ->create();

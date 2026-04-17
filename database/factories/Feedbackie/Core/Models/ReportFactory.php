@@ -9,7 +9,7 @@ use Feedbackie\Core\Utils\Differ;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Report>
+ * @extends Factory<\App\Models\Report>
  */
 class ReportFactory extends Factory
 {

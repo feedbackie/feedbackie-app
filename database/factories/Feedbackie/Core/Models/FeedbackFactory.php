@@ -9,7 +9,7 @@ use Feedbackie\Core\Models\Feedback;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Feedback>
+ * @extends Factory<\App\Models\Feedback>
  */
 class FeedbackFactory extends Factory
 {
@@ -33,7 +33,7 @@ class FeedbackFactory extends Factory
 
     public function extended()
     {
-        return $this->state(function (array $attributes) {
+        return $this->state(function (array $attributes): array {
             return [
                 'comment' => $this->getRandomComment(),
                 'options' => $this->getRandomOptions(),

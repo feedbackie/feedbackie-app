@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Auth;
 
+use Filament\Schemas\Components\Component;
 use Filament\Schemas\Schema;
 use Filament\Forms\Components\TextInput;
 use Illuminate\Validation\ValidationException;
@@ -21,7 +22,7 @@ class Login extends \Filament\Auth\Pages\Login
             ->statePath('data');
     }
 
-    protected function getLoginFormComponent(): \Filament\Schemas\Components\Component
+    protected function getLoginFormComponent(): Component
     {
         return TextInput::make('login')
             ->label(\__('labels.auth.login'))
