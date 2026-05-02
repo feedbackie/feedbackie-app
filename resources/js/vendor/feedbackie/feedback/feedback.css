@@ -109,6 +109,7 @@ label.sm-helpful-comment {
     color: #363636;
     letter-spacing: 0.01em;
 }
+
 #sm-helpful-comment-container textarea,
 .sm-helpful-comment textarea,
 textarea#sm-helpful-comment {
@@ -118,13 +119,15 @@ textarea#sm-helpful-comment {
     font-size: 15px;
     background: #fff;
     color: #222;
-    box-shadow: 0 1px 2px rgba(60,60,60,0.04);
+    box-shadow: 0 1px 2px rgba(60, 60, 60, 0.04);
     transition: border 0.2s, box-shadow 0.2s;
     outline: none;
     resize: vertical;
     min-height: 80px;
-    margin-top: 3px;
+    margin-top: 15px;
+    margin-left: 5px;
 }
+
 #sm-helpful-comment-container textarea:focus,
 .sm-helpful-comment textarea:focus,
 textarea#sm-helpful-comment:focus {
@@ -135,11 +138,12 @@ textarea#sm-helpful-comment:focus {
 
 .sm-experience-labels {
     margin-bottom: 4px;
-    font-size: 15px;
+    font-size: 16px;
     display: flex;
     align-items: center;
     cursor: pointer;
     gap: 8px;
+    padding-left: 10px;
 }
 
 .sm-experience-checkbox {
@@ -159,10 +163,9 @@ textarea#sm-helpful-comment:focus {
     cursor: pointer;
     background-color: #dbdbdb;
 }
-.sm-submit-buttons:disabled {
-    background: #dbdbdb;
-    cursor: not-allowed;
-    opacity: 0.7;
+
+.sm-submit-buttons:hover {
+    background-color: #a9a9a9;
 }
 
 .close {
@@ -211,8 +214,10 @@ textarea#sm-helpful-comment:focus {
     z-index: 999;
 }
 
-button.sm-question-answer{
+button.sm-question-answer {
     cursor: pointer;
+    padding: 6px 16px;
+    border: none;
 }
 
 .sm-question-answers {
@@ -257,6 +262,14 @@ button.sm-question-answer{
     text-decoration: underline;
 }
 
+@media (max-width: 480px) {
+    .sm-question-answers {
+        display: block;
+        width: 100%;
+        margin-top: 5px;
+    }
+}
+
 @media (prefers-color-scheme: dark) {
     .sm-question-popup, .sm-helpful-extended-popup, .sm-not-helpful-extended-popup {
         background: #080808 !important;
@@ -289,6 +302,7 @@ button.sm-question-answer{
     .sm-helpful-comment-label {
         color: #ccced1 !important;
     }
+
     #sm-helpful-comment-container textarea,
     .sm-helpful-comment textarea,
     textarea#sm-helpful-comment {
@@ -296,16 +310,15 @@ button.sm-question-answer{
         color: #e5e7eb;
         border: 1px solid #444;
     }
+
     #sm-helpful-comment-container textarea:focus,
     .sm-helpful-comment textarea:focus,
     textarea#sm-helpful-comment:focus {
         border: 1.5px solid #545454;
         background: #2d2d2d;
     }
+
     .sm-submit-buttons {
         color: #23272e;
-    }
-    .sm-submit-buttons:disabled {
-        color: #9ca3af;
     }
 }

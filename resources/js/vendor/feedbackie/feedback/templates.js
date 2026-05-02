@@ -138,13 +138,15 @@ let extendedNoTemplate = `
                 </label>
             </fieldset>
             <div id="sm-helpful-comment-container" class="sm-helpful-comment">
-                 <label class="sm-helpful-comment-label" for="sm-helpful-comment">{{any_additional_feedback_optional}}</label>
+                 <p>
+                    <label class="sm-helpful-comment-label" for="sm-helpful-comment">{{any_additional_feedback_optional}}</label>
+                 </p>
                  <textarea id="sm-helpful-comment" name="feedback-comment" rows="6" cols="40" maxlength="9999" placeholder="{{any_helpful_information}}"></textarea>
             </div>
             <div class="sm-helpful-statistics"></div>
     </div>
     <div class="sm-extended-feedback-footer">
-        <button id="sm-submit-helpful-button" class="sm-submit-buttons" type="submit" disabled="">{{submit_feedback}}</button>
+        <button id="sm-submit-helpful-button" class="sm-submit-buttons" type="submit">{{submit_feedback}}</button>
         <div class="sm-powered-by">
         </div>
     </div>
@@ -154,7 +156,7 @@ let extendedNoTemplate = `
 
 let statisticsTemplate = `
     <p>{{users_feedback_stats}}:</p>
-    <ul>
+    <ul style="padding-left: 25px;">
     <li>{{useful_count_label}}: %useful_count%</li>
     <li>{{not_useful_count_label}}: %not_useful_count%</li>
     </ul>

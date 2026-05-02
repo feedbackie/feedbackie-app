@@ -215,7 +215,6 @@ export class Feedback {
             star.addEventListener("click", function (evt) {
                 _this.#languageScore = evt.target.dataset.startindex;
                 _this.#languageScoreDescription = evt.target.dataset.stardescription;
-                _this.#_unlockExtendedSubmitButton()
             })
         })
     }
@@ -256,15 +255,6 @@ export class Feedback {
 
         const helpfulSubmitBtn = this.#container.shadowRoot.getElementById("sm-submit-helpful-button")
 
-        this.#container.shadowRoot.querySelectorAll(".sm-experience-checkbox").forEach(function (checkbox) {
-            checkbox.addEventListener("click", function () {
-                _this.#_unlockExtendedSubmitButton()
-            })
-        })
-        this.#container.shadowRoot.getElementById("sm-helpful-comment").addEventListener("keyup", function () {
-            _this.#_unlockExtendedSubmitButton()
-        }, false)
-
         helpfulSubmitBtn.addEventListener("click", async function (evt) {
             evt.preventDefault();
 
@@ -293,20 +283,6 @@ export class Feedback {
         this.#container.style.position = 'relative';
         this.#extendedContainer.innerHTML = "";
         this.#questionContainer.style.display = "block"
-    }
-
-    #_unlockExtendedSubmitButton() {
-        const comment = this.#container.shadowRoot.getElementById("sm-helpful-comment").value
-
-        const optionsCount = this.#container.shadowRoot.querySelectorAll(".sm-experience-checkbox:checked").length;
-
-        const helpfulSubmitBtn = this.#container.shadowRoot.getElementById("sm-submit-helpful-button")
-
-        if (this.#languageScore != null || comment.length > 0 || optionsCount > 0) {
-            helpfulSubmitBtn.removeAttribute("disabled")
-        } else {
-            helpfulSubmitBtn.setAttribute("disabled", true)
-        }
     }
 
     #_insertPoweredByLink() {

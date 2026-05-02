@@ -6,7 +6,7 @@ namespace App\Configuration;
 
 class SecretsConfiguration
 {
-    public static function readFromEnvOrSecret(string $key, string $default = null): ?string
+    public static function readFromEnvOrSecret(string $key, ?string $default = null): ?string
     {
         $value = env($key);
 

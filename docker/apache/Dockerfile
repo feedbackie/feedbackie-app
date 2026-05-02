@@ -1,4 +1,4 @@
-FROM php:8.3-apache-trixie
+FROM php:8.5-apache-trixie
 
 ARG USER_ID=1000
 ARG GROUP_ID=1000
@@ -10,8 +10,6 @@ ENV APACHE_LOG_DIR=/data/apache/logs
 RUN apt update && apt install -y $PHPIZE_DEPS libonig-dev libpq-dev libzip-dev libsqlite3-dev libicu-dev bash postgresql-client-17 libwebp-dev libfreetype-dev libjpeg-dev libfcgi-bin ca-certificates unzip 7zip git
 
 RUN docker-php-ext-install mbstring pdo pdo_pgsql mysqli zip gd intl pcntl exif
-
-RUN docker-php-ext-enable opcache
 
 RUN pecl install apcu \
     && docker-php-ext-enable apcu --ini-name 10-docker-php-ext-apcu.ini
