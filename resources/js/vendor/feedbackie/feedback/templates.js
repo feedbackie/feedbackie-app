@@ -69,15 +69,11 @@ let extendedYesTemplate = `
                 <label class="sm-helpful-comment-label" for="sm-helpful-comment">{{any_additional_feedback_optional}}</label>
                 <textarea id="sm-helpful-comment" name="feedback-comment" rows="5" cols="40" maxlength="250" placeholder="{{any_helpful_information}}"></textarea>
             </div>
-            <div id="sm-email-container" class="sm-helpful-email">
-                <label class="sm-helpful-comment-label" for="sm-helpful-email">{{allow_follow_back_by_email_optional}}</label>
-                <input id="sm-helpful-email" name="feedback-email"/>
-            </div>
+            <div class="sm-helpful-statistics"></div>
     </div>
     <div class="sm-extended-feedback-footer">
-        <button id="sm-submit-helpful-button" class="sm-submit-buttons" type="submit" disabled="">{{submit_feedback}}</button>
+        <button id="sm-submit-helpful-button" class="sm-submit-buttons" type="submit">{{submit_feedback}}</button>
         <div class="sm-powered-by">
-            <a href="https://feedbackie.app" target="_blank" rel="noopener noreferrer">Powered by Feedbackie</a>
         </div>
     </div>
     </form>
@@ -145,19 +141,23 @@ let extendedNoTemplate = `
                  <label class="sm-helpful-comment-label" for="sm-helpful-comment">{{any_additional_feedback_optional}}</label>
                  <textarea id="sm-helpful-comment" name="feedback-comment" rows="6" cols="40" maxlength="9999" placeholder="{{any_helpful_information}}"></textarea>
             </div>
-            <div id="sm-email-container" class="sm-helpful-email">
-                 <label class="sm-helpful-email-label" for="sm-helpful-email">{{allow_follow_back_by_email_optional}}</label>
-                 <input id="sm-helpful-email" name="feedback-email"/>
-            </div>
+            <div class="sm-helpful-statistics"></div>
     </div>
     <div class="sm-extended-feedback-footer">
         <button id="sm-submit-helpful-button" class="sm-submit-buttons" type="submit" disabled="">{{submit_feedback}}</button>
         <div class="sm-powered-by">
-            <a href="https://feedbackie.app" target="_blank" rel="noopener noreferrer">Powered by Feedbackie</a>
         </div>
     </div>
     </form>
 </div>
 `
 
-export {basicTemplate, extendedNoTemplate, extendedYesTemplate}
+let statisticsTemplate = `
+    <p>{{users_feedback_stats}}:</p>
+    <ul>
+    <li>{{useful_count_label}}: %useful_count%</li>
+    <li>{{not_useful_count_label}}: %not_useful_count%</li>
+    </ul>
+`
+
+export {basicTemplate, extendedNoTemplate, extendedYesTemplate, statisticsTemplate}

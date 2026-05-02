@@ -1,9 +1,11 @@
 import {basicTemplate} from "./templates";
 import {extendedYesTemplate} from "./templates";
 import {extendedNoTemplate} from "./templates";
+import {statisticsTemplate} from "./templates";
 import {localize} from "../localize"
 import {translate} from "../localize"
 import {locales} from "./locales"
+import feedbackCss from './feedback.css?inline'
 
 export class Feedback {
     #app = null
@@ -11,6 +13,7 @@ export class Feedback {
     #selector = ""
     #insertType = "afterend"
     #container = null
+    #shadowContainer = null
     #questionContainer = null
     #extendedContainer = null
     #basicPopupCode = ""
@@ -26,7 +29,9 @@ export class Feedback {
     #stickyRatio = 0.25
     #isSticky = false
 
-    constructor(app, selector, insertType, stickyRatio) {
+    #displayPoweredBy = false
+
+    constructor(app, selector, insertType, stickyRatio, displayPoweredBy) {
         this.#app = app
         this.#baseUrl = app.getBaseUrl()
         this.#selector = selector
@@ -36,6 +41,7 @@ export class Feedback {
         this.#codeForNoAnswer = localize(extendedNoTemplate, locales)
         this.#stickyRatio = stickyRatio
         this.#isSticky = false
+        this.#displayPoweredBy = displayPoweredBy
     }
 
     init() {
@@ -46,9 +52,18 @@ export class Feedback {
             return;
         }
 
-        this.#container.innerHTML = this.#basicPopupCode
-        this.#extendedContainer = document.getElementById("sm-extended-feedback-container");
-        this.#questionContainer = document.getElementById("sm-question-popup")
+        const shadow = this.#container.attachShadow({ mode: "open" })
+        const sheet = new CSSStyleSheet();
+        sheet.replaceSync(feedbackCss);
+        shadow.adoptedStyleSheets = [sheet];
+
+        this.#shadowContainer = document.createElement("div");
+        this.#shadowContainer.innerHTML = this.#basicPopupCode
+
+        shadow.append(this.#shadowContainer)
+
+        this.#extendedContainer = this.#container.shadowRoot.getElementById("sm-extended-feedback-container");
+        this.#questionContainer = this.#container.shadowRoot.getElementById("sm-question-popup")
 
         if (this.#_shouldPopupBeSticky()) {
             this.#_addStickyWatcher()
@@ -57,7 +72,7 @@ export class Feedback {
         this.#_addYesButtonHandler()
         this.#_addNoButtonHandler()
 
-        let questionCloseBtn = document.getElementById("sm-question-close-button")
+        let questionCloseBtn = this.#container.shadowRoot.getElementById("sm-question-close-button")
 
         questionCloseBtn.addEventListener("click", function () {
             questionCloseBtn.style.display = "none";
@@ -71,6 +86,10 @@ export class Feedback {
                 _this.#_hideExtendedPopup()
             }
         });
+
+        if (this.#displayPoweredBy){
+            this.#_insertPoweredByLink()
+        }
     }
 
     #_getScrollPercent() {
@@ -105,54 +124,88 @@ export class Feedback {
 
     #_addYesButtonHandler() {
         const _this = this
-        let yesBtn = document.getElementById("sm-question-yes-answer")
-        yesBtn.addEventListener("click", function (evt) {
-            _this.#_sendFeedbackAnswer("yes")
-            _this.#_hideBasicPopup()
-            _this.#_showExtendedFeedbackPopupForYes()
+        let noBtn = this.#container.shadowRoot.getElementById("sm-question-no-answer")
+        let yesBtn = _this.#container.shadowRoot.getElementById("sm-question-yes-answer")
+        yesBtn.addEventListener("click", async function (evt) {
+            yesBtn.disabled = true
+            yesBtn.innerText = translate('loading', locales)
+            noBtn.disabled = true
+            noBtn.style.visibility = "hidden"
+
+            const stats = await _this.#_sendFeedbackAnswer("yes")
+
+            if(null !== stats) {
+                _this.#_hideBasicPopup()
+                _this.#_showExtendedFeedbackPopupForYes(stats)
+            }else{
+                _this.#_hideBasicPopupWithError()
+            }
         })
     }
 
     #_addNoButtonHandler() {
         const _this = this
-        let noBtn = document.getElementById("sm-question-no-answer")
-        noBtn.addEventListener("click", function (evt) {
-            _this.#_sendFeedbackAnswer("no")
-            _this.#_hideBasicPopup()
-            _this.#_showExtendedFeedbackPopupForNo()
+        let noBtn = this.#container.shadowRoot.getElementById("sm-question-no-answer")
+        let yesBtn = this.#container.shadowRoot.getElementById("sm-question-yes-answer")
+        noBtn.addEventListener("click", async function (evt) {
+            noBtn.disabled = true
+            noBtn.innerText = translate('loading', locales)
+            yesBtn.disabled = true
+            yesBtn.style.visibility = "hidden"
+            const stats = await _this.#_sendFeedbackAnswer("no")
+
+            if(null !== stats) {
+                _this.#_hideBasicPopup()
+                _this.#_showExtendedFeedbackPopupForNo(stats)
+            }else{
+                _this.#_hideBasicPopupWithError()
+            }
         })
     }
 
-    #_showExtendedFeedbackPopupForYes() {
+    #_showExtendedFeedbackPopupForYes(stats) {
         this.#extendedContainer.innerHTML = this.#codeForYesAnswer
         this.#container.style.position = "sticky"
+        this.#_updateStatisticsData(stats)
 
         this.#_handleExtendedPopup()
     }
 
-    #_showExtendedFeedbackPopupForNo() {
+    #_showExtendedFeedbackPopupForNo(stats) {
         this.#extendedContainer.innerHTML = this.#codeForNoAnswer
         this.#container.style.position = "sticky"
+        this.#_updateStatisticsData(stats)
 
         this.#_handleExtendedPopup()
+    }
+
+    #_updateStatisticsData(stats){
+        let statsMessage = localize(statisticsTemplate, locales)
+        statsMessage = statsMessage.replaceAll("%useful_count%", stats.usefulCount ?? 0)
+        statsMessage = statsMessage.replaceAll("%not_useful_count%", stats.notUsefulCount ?? 0)
+
+        const statsContainers = this.#container.shadowRoot.querySelectorAll('.sm-helpful-statistics')
+        statsContainers.forEach(function(container){
+            container.innerHTML = statsMessage
+        });
     }
 
     #_addLanguageScoreWatcher() {
         const _this = this
         let temporaryScore = null
         //Remove not committed rate
-        document.getElementById("sm-helpful-language-stars")
+        this.#container.shadowRoot.getElementById("sm-helpful-language-stars")
             .addEventListener("mouseleave", function (evt) {
                 _this.#_updateLanguageScoreState(_this.#languageScore)
 
                 //reset to default or selected
-                let helpfulLabel = document.getElementById("sm-helpful-star-description");
+                let helpfulLabel = _this.#container.shadowRoot.getElementById("sm-helpful-star-description");
                 helpfulLabel.innerHTML = _this.#languageScoreDescription
             })
 
-        document.querySelectorAll(".sm-helpful-star").forEach(function (star) {
+        this.#container.shadowRoot.querySelectorAll(".sm-helpful-star").forEach(function (star) {
             star.addEventListener("mouseover", function (evt) {
-                let helpfulLabel = document.getElementById("sm-helpful-star-description");
+                let helpfulLabel = _this.#container.shadowRoot.getElementById("sm-helpful-star-description");
                 temporaryScore = evt.target.dataset.startindex;
 
                 helpfulLabel.innerHTML = evt.target.dataset.stardescription;
@@ -168,7 +221,7 @@ export class Feedback {
     }
 
     #_updateLanguageScoreState(currentIndex) {
-        document.querySelectorAll(".sm-helpful-star").forEach(function (star) {
+        this.#container.shadowRoot.querySelectorAll(".sm-helpful-star").forEach(function (star) {
             if (currentIndex == null) {
                 star.classList.remove("sm-helpful-star-selected")
 
@@ -185,33 +238,30 @@ export class Feedback {
 
     #_handleExtendedPopup() {
         const _this = this
-        const extendedCloseBtn = document.getElementById("sm-extended-close-button")
+        const extendedCloseBtn = this.#container.shadowRoot.getElementById("sm-extended-close-button")
 
 
         if (_this.#isSticky) {
-            const bodyElements = _this.#container.querySelectorAll('.sm-extended-feedback-body')
+            const bodyElements = _this.#container.shadowRoot.querySelectorAll('.sm-extended-feedback-body')
             bodyElements.forEach(function(bodyElement) {
                 bodyElement.style.maxHeight = "50vh"
             })
         }
-        
+
         _this.#_addLanguageScoreWatcher()
 
         extendedCloseBtn.addEventListener("click", function () {
             _this.#_hideExtendedPopup()
         })
 
-        const helpfulSubmitBtn = document.getElementById("sm-submit-helpful-button")
+        const helpfulSubmitBtn = this.#container.shadowRoot.getElementById("sm-submit-helpful-button")
 
-        document.querySelectorAll(".sm-experience-checkbox").forEach(function (checkbox) {
+        this.#container.shadowRoot.querySelectorAll(".sm-experience-checkbox").forEach(function (checkbox) {
             checkbox.addEventListener("click", function () {
                 _this.#_unlockExtendedSubmitButton()
             })
         })
-        document.getElementById("sm-helpful-comment").addEventListener("keyup", function () {
-            _this.#_unlockExtendedSubmitButton()
-        }, false)
-        document.getElementById("sm-helpful-email").addEventListener("keyup", function () {
+        this.#container.shadowRoot.getElementById("sm-helpful-comment").addEventListener("keyup", function () {
             _this.#_unlockExtendedSubmitButton()
         }, false)
 
@@ -226,14 +276,18 @@ export class Feedback {
 
             _this.#_sendExtendedFeedback()
         })
-
-
     }
 
     #_hideBasicPopup() {
         this.#questionContainer.style.display = "none";
         this.#questionContainer.innerHTML = translate("thank_you_for_your_feedback", locales)
     }
+
+    #_hideBasicPopupWithError() {
+        this.#questionContainer.style.display = "none";
+        this.#questionContainer.innerHTML = translate("something_went_wrong", locales)
+    }
+
 
     #_hideExtendedPopup() {
         this.#container.style.position = 'relative';
@@ -242,19 +296,29 @@ export class Feedback {
     }
 
     #_unlockExtendedSubmitButton() {
-        const comment = document.getElementById("sm-helpful-comment").value
+        const comment = this.#container.shadowRoot.getElementById("sm-helpful-comment").value
 
-        const email = document.getElementById("sm-helpful-email").value
+        const optionsCount = this.#container.shadowRoot.querySelectorAll(".sm-experience-checkbox:checked").length;
 
-        const optionsCount = document.querySelectorAll(".sm-experience-checkbox:checked").length;
+        const helpfulSubmitBtn = this.#container.shadowRoot.getElementById("sm-submit-helpful-button")
 
-        const helpfulSubmitBtn = document.getElementById("sm-submit-helpful-button")
-
-        if (this.#languageScore != null || comment.length > 0 || email.length > 0 || optionsCount > 0) {
+        if (this.#languageScore != null || comment.length > 0 || optionsCount > 0) {
             helpfulSubmitBtn.removeAttribute("disabled")
         } else {
             helpfulSubmitBtn.setAttribute("disabled", true)
         }
+    }
+
+    #_insertPoweredByLink() {
+        const poweredByLink = document.createElement("a")
+        poweredByLink.href = "https://feedbackie.app"
+        poweredByLink.innerText = translate('powered_by_feedbackie', locales)
+        poweredByLink.target = "_blank"
+
+        const poweredByContainers = this.#container.shadowRoot.querySelectorAll(".sm-powered-by")
+        poweredByContainers.forEach(function(element){
+             element.append(poweredByLink)
+        })
     }
 
     async #_sendFeedbackAnswer(answer) {
@@ -280,26 +344,29 @@ export class Feedback {
                 let data = await response.json();
                 if (data.success) {
                     this.#feedbackRecordId = data.id
+
+                    return {
+                        usefulCount: data.useful_count ?? 0,
+                        notUsefulCount: data.not_useful_count ?? 0,
+                    }
                 }
             }
         } catch (e) {
-
+            return null
         }
     }
 
     async #_sendExtendedFeedback() {
-        const comment = document.getElementById("sm-helpful-comment").value
-        const email = document.getElementById("sm-helpful-email").value
+        const comment = this.#container.shadowRoot.getElementById("sm-helpful-comment").value
 
         let selected = []
-        document.querySelectorAll(".sm-experience-checkbox:checked")
+        this.#container.shadowRoot.querySelectorAll(".sm-experience-checkbox:checked")
             .forEach(function (checkbox) {
                 selected.push(checkbox.getAttribute("value"))
             })
 
         if (comment.length === 0 &&
             selected.length === 0 &&
-            email.length === 0 &&
             this.#languageScore === null) {
             this.#_hideExtendedPopup()
 
@@ -310,7 +377,6 @@ export class Feedback {
             "options": selected,
             "language_score": this.#languageScore,
             "comment": comment,
-            "email": email,
             "ss": this.#app.getSessionId(),
             "ls": this.#app.getLoadedTime(),
             "ts": this.#app.getCurrentTime(),

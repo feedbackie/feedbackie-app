@@ -10,6 +10,7 @@ window.feedbackie_settings.report_anchor_selector = window.feedbackie_settings.r
 window.feedbackie_settings.feedback_anchor_selector = window.feedbackie_settings.feedback_anchor_selector || null
 
 window.feedbackie_settings.feedback_sticky_ratio = window.feedbackie_settings.feedback_sticky_ratio || 0.25
+window.feedbackie_settings.display_powered_by = window.feedbackie_settings.display_powered_by || false
 
 window.feedbackie_settings.report_locales = window.feedbackie_settings.report_locales || []
 window.feedbackie_settings.feedback_locales = window.feedbackie_settings.feedback_locales || []
@@ -27,6 +28,7 @@ import {App} from "./app/app"
             window.feedbackie_settings.feedback_anchor_selector,
             window.feedbackie_settings.feedback_insert_type,
             window.feedbackie_settings.feedback_sticky_ratio,
+            window.feedbackie_settings.display_powered_by,
         )
         feedback.init()
     }
