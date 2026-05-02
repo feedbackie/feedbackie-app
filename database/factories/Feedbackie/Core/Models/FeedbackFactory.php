@@ -28,7 +28,6 @@ class FeedbackFactory extends Factory
             'url' => $url,
             'url_hash' => md5($url),
             'hash' => fake()->md5,
-            'language_score' => fake()->numberBetween(0, 4),
         ];
     }
 
@@ -38,7 +37,6 @@ class FeedbackFactory extends Factory
             return [
                 'comment' => $this->getRandomComment(),
                 'options' => $this->getRandomOptions(),
-                'language_score' => fake()->numberBetween(0, 4),
             ];
         });
     }

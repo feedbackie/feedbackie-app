@@ -21,10 +21,9 @@
 }
 
 .sm-extended-feedback-header {
-    padding: 15px 30px 0 30px;
+    padding: 15px 20px 0 30px;
     position: relative;
     display: flex;
-    align-items: center;
     justify-content: space-between;
     min-height: 50px;
     flex-shrink: 0;
@@ -38,6 +37,11 @@
     font-size: 16px;
     line-height: 1.4;
     color: #363636;
+}
+
+.sm-extended-feedback-title-container {
+    display: flex;
+    align-items: center;
 }
 
 .sm-extended-feedback-body {
@@ -72,14 +76,6 @@
     text-align: right;
 }
 
-.sm-footer-close {
-    margin: 0;
-    padding: 0;
-    flex-shrink: 0;
-    position: static;
-    float: none;
-}
-
 .sm-helpful-extended-popup fieldset, .sm-not-helpful-extended-popup fieldset {
     display: flex;
     flex-direction: column;
@@ -93,7 +89,6 @@
 #sm-helpful-comment-container {
     display: flex;
     flex-direction: column;
-    margin-bottom: 18px;
 }
 
 label.sm-helpful-comment {
@@ -103,11 +98,16 @@ label.sm-helpful-comment {
 
 .sm-helpful-comment-label {
     margin-top: 5px;
-    margin-bottom: 5px;
+    margin-bottom: 15px !important;
     font-size: 16px;
     font-weight: 500;
     color: #363636;
     letter-spacing: 0.01em;
+}
+
+#sm-helpful-comment {
+    margin-top: 15px;
+    margin-left: 5px;
 }
 
 #sm-helpful-comment-container textarea,
@@ -124,8 +124,7 @@ textarea#sm-helpful-comment {
     outline: none;
     resize: vertical;
     min-height: 80px;
-    margin-top: 15px;
-    margin-left: 5px;
+    margin-top: 3px;
 }
 
 #sm-helpful-comment-container textarea:focus,
@@ -177,6 +176,10 @@ textarea#sm-helpful-comment:focus {
     line-height: 1;
 }
 
+#sm-question-close-button {
+    visibility: hidden;
+}
+
 .sm-extended-feedback-header .close {
     margin: 0;
     padding: 0;
@@ -218,31 +221,17 @@ button.sm-question-answer {
     cursor: pointer;
     padding: 6px 16px;
     border: none;
+    background-color: #dbdbdb;
+}
+
+button.sm-question-answer:hover {
+    background-color: #a9a9a9;
 }
 
 .sm-question-answers {
     margin-left: auto;
     margin-right: 30px;
     white-space: nowrap;
-}
-
-.sm-helpful-star {
-    font-size: 30px;
-    color: #ccced1;
-    cursor: pointer;
-}
-
-.sm-helpful-star-selected {
-    color: grey;
-}
-
-#sm-helpful-star-description, #sm-not-helpful-star-description {
-    margin: auto;
-    margin-left: 15px;
-}
-
-#sm-helpful-language-stars, #sm-not-helpful-language-stars {
-    display: flex;
 }
 
 .sm-powered-by {

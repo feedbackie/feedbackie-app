@@ -13,7 +13,6 @@ export class Feedback {
     #selector = ""
     #insertType = "afterend"
     #container = null
-    #shadowContainer = null
     #questionContainer = null
     #extendedContainer = null
     #basicPopupCode = ""
@@ -23,8 +22,6 @@ export class Feedback {
     #baseUrl = null
 
     #feedbackRecordId = null
-    #languageScore = null
-    #languageScoreDescription = ""
 
     #stickyRatio = 0.25
     #isSticky = false
@@ -57,10 +54,10 @@ export class Feedback {
         sheet.replaceSync(feedbackCss);
         shadow.adoptedStyleSheets = [sheet];
 
-        this.#shadowContainer = document.createElement("div");
-        this.#shadowContainer.innerHTML = this.#basicPopupCode
+        const shadowContainer = document.createElement("div");
+        shadowContainer.innerHTML = this.#basicPopupCode
 
-        shadow.append(this.#shadowContainer)
+        shadow.append(shadowContainer)
 
         this.#extendedContainer = this.#container.shadowRoot.getElementById("sm-extended-feedback-container");
         this.#questionContainer = this.#container.shadowRoot.getElementById("sm-question-popup")
@@ -75,7 +72,7 @@ export class Feedback {
         let questionCloseBtn = this.#container.shadowRoot.getElementById("sm-question-close-button")
 
         questionCloseBtn.addEventListener("click", function () {
-            questionCloseBtn.style.display = "none";
+            questionCloseBtn.style.visibility = "hidden";
             //make not sticky
             _this.#questionContainer.style.display = "block";
             _this.#container.style.position = "relative";
@@ -86,10 +83,6 @@ export class Feedback {
                 _this.#_hideExtendedPopup()
             }
         });
-
-        if (this.#displayPoweredBy){
-            this.#_insertPoweredByLink()
-        }
     }
 
     #_getScrollPercent() {
@@ -118,19 +111,22 @@ export class Feedback {
                 _this.#container.style.position = "sticky"
                 _this.#container.style.bottom = 0
                 _this.#isSticky = true
+
+                let questionCloseBtn = _this.#container.shadowRoot.getElementById("sm-question-close-button")
+                questionCloseBtn.style.visibility = "visible"
             }
         });
     }
 
     #_addYesButtonHandler() {
         const _this = this
-        let noBtn = this.#container.shadowRoot.getElementById("sm-question-no-answer")
+        let noBtn = _this.#container.shadowRoot.getElementById("sm-question-no-answer")
         let yesBtn = _this.#container.shadowRoot.getElementById("sm-question-yes-answer")
+        let questionLabel = _this.#container.shadowRoot.getElementById("sm-question-label")
         yesBtn.addEventListener("click", async function (evt) {
             yesBtn.disabled = true
-            yesBtn.innerText = translate('loading', locales)
             noBtn.disabled = true
-            noBtn.style.visibility = "hidden"
+            questionLabel.innerText = translate("loading", locales)
 
             const stats = await _this.#_sendFeedbackAnswer("yes")
 
@@ -145,15 +141,15 @@ export class Feedback {
 
     #_addNoButtonHandler() {
         const _this = this
-        let noBtn = this.#container.shadowRoot.getElementById("sm-question-no-answer")
-        let yesBtn = this.#container.shadowRoot.getElementById("sm-question-yes-answer")
+        let noBtn = _this.#container.shadowRoot.getElementById("sm-question-no-answer")
+        let yesBtn = _this.#container.shadowRoot.getElementById("sm-question-yes-answer")
+        let questionLabel = _this.#container.shadowRoot.getElementById("sm-question-label")
         noBtn.addEventListener("click", async function (evt) {
             noBtn.disabled = true
-            noBtn.innerText = translate('loading', locales)
             yesBtn.disabled = true
-            yesBtn.style.visibility = "hidden"
-            const stats = await _this.#_sendFeedbackAnswer("no")
+            questionLabel.innerText = translate("loading", locales)
 
+            const stats = await _this.#_sendFeedbackAnswer("no")
             if(null !== stats) {
                 _this.#_hideBasicPopup()
                 _this.#_showExtendedFeedbackPopupForNo(stats)
@@ -168,6 +164,10 @@ export class Feedback {
         this.#container.style.position = "sticky"
         this.#_updateStatisticsData(stats)
 
+        if (this.#displayPoweredBy === true){
+            this.#_insertPoweredByLink()
+        }
+
         this.#_handleExtendedPopup()
     }
 
@@ -175,6 +175,10 @@ export class Feedback {
         this.#extendedContainer.innerHTML = this.#codeForNoAnswer
         this.#container.style.position = "sticky"
         this.#_updateStatisticsData(stats)
+
+        if (this.#displayPoweredBy === true){
+            this.#_insertPoweredByLink()
+        }
 
         this.#_handleExtendedPopup()
     }
@@ -190,51 +194,6 @@ export class Feedback {
         });
     }
 
-    #_addLanguageScoreWatcher() {
-        const _this = this
-        let temporaryScore = null
-        //Remove not committed rate
-        this.#container.shadowRoot.getElementById("sm-helpful-language-stars")
-            .addEventListener("mouseleave", function (evt) {
-                _this.#_updateLanguageScoreState(_this.#languageScore)
-
-                //reset to default or selected
-                let helpfulLabel = _this.#container.shadowRoot.getElementById("sm-helpful-star-description");
-                helpfulLabel.innerHTML = _this.#languageScoreDescription
-            })
-
-        this.#container.shadowRoot.querySelectorAll(".sm-helpful-star").forEach(function (star) {
-            star.addEventListener("mouseover", function (evt) {
-                let helpfulLabel = _this.#container.shadowRoot.getElementById("sm-helpful-star-description");
-                temporaryScore = evt.target.dataset.startindex;
-
-                helpfulLabel.innerHTML = evt.target.dataset.stardescription;
-
-                _this.#_updateLanguageScoreState(temporaryScore)
-            })
-            star.addEventListener("click", function (evt) {
-                _this.#languageScore = evt.target.dataset.startindex;
-                _this.#languageScoreDescription = evt.target.dataset.stardescription;
-            })
-        })
-    }
-
-    #_updateLanguageScoreState(currentIndex) {
-        this.#container.shadowRoot.querySelectorAll(".sm-helpful-star").forEach(function (star) {
-            if (currentIndex == null) {
-                star.classList.remove("sm-helpful-star-selected")
-
-                return
-            }
-
-            if (star.dataset.startindex <= currentIndex) {
-                star.classList.add("sm-helpful-star-selected")
-            } else {
-                star.classList.remove("sm-helpful-star-selected")
-            }
-        });
-    }
-
     #_handleExtendedPopup() {
         const _this = this
         const extendedCloseBtn = this.#container.shadowRoot.getElementById("sm-extended-close-button")
@@ -246,8 +205,6 @@ export class Feedback {
                 bodyElement.style.maxHeight = "50vh"
             })
         }
-
-        _this.#_addLanguageScoreWatcher()
 
         extendedCloseBtn.addEventListener("click", function () {
             _this.#_hideExtendedPopup()
@@ -286,14 +243,14 @@ export class Feedback {
     }
 
     #_insertPoweredByLink() {
-        const poweredByLink = document.createElement("a")
-        poweredByLink.href = "https://feedbackie.app"
-        poweredByLink.innerText = translate('powered_by_feedbackie', locales)
-        poweredByLink.target = "_blank"
-
         const poweredByContainers = this.#container.shadowRoot.querySelectorAll(".sm-powered-by")
         poweredByContainers.forEach(function(element){
-             element.append(poweredByLink)
+            const poweredByLink = document.createElement("a")
+            poweredByLink.href = "https://feedbackie.app"
+            poweredByLink.innerText = translate('powered_by_feedbackie', locales)
+            poweredByLink.target = "_blank"
+
+            element.append(poweredByLink)
         })
     }
 
@@ -342,8 +299,7 @@ export class Feedback {
             })
 
         if (comment.length === 0 &&
-            selected.length === 0 &&
-            this.#languageScore === null) {
+            selected.length === 0) {
             this.#_hideExtendedPopup()
 
             return
@@ -351,7 +307,6 @@ export class Feedback {
 
         let params = {
             "options": selected,
-            "language_score": this.#languageScore,
             "comment": comment,
             "ss": this.#app.getSessionId(),
             "ls": this.#app.getLoadedTime(),
