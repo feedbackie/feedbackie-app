@@ -33,7 +33,7 @@ class CorsConfigFactory
             return $config['allowed_origins'];
         }
 
-        $site = Site::find($siteId);
+        $site = Site::query()->find($siteId);
 
         if ($site === null) {
             return [];

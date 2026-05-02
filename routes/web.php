@@ -3,5 +3,5 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return redirect()->route('filament.app.auth.login');
+    return to_route('filament.app.auth.login');
 });

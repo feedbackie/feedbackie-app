@@ -20,7 +20,8 @@ RUN { \
         echo 'opcache.max_accelerated_files=10000'; \
         echo 'opcache.memory_consumption=128'; \
         echo 'opcache.save_comments=1'; \
-        echo 'opcache.revalidate_freq=60'; \
+        echo 'opcache.revalidate_freq=10'; \
+        echo 'opcache.validate_timestamps=1'; \
         echo 'opcache.jit=1255'; \
         echo 'opcache.jit_buffer_size=8M'; \
     } > "/usr/local/etc/php/conf.d/opcache.ini";
