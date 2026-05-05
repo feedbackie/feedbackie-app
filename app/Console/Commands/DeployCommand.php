@@ -32,13 +32,9 @@ class DeployCommand extends Command
             ->where('is_super_admin', true)
             ->count();
 
-        if ($adminsCount > 0) {
-            $this->info('Users table is not empty, skipping deployment');
-
-            return self::FAILURE;
+        if ($adminsCount === 0) {
+            $this->call('app:create-admin-user');
         }
-
-        $this->call('app:create-admin-user');
 
         $this->call('app:download-geoip-db');
 

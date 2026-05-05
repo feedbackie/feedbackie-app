@@ -8,6 +8,9 @@
 - Improve filament interface
 - Add ADMIN_PATH environment variable to configure admin panel prefix
 - Show answers statistics in extended helpfulness feedback widget
+- Rewrite mistakes report modal with native HTML5 <dialog> element and shadow root
+- Update Apache version
+
 
 Breaking changes:
 

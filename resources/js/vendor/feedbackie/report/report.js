@@ -2,17 +2,20 @@ import {reportModalTemplate} from "./templates";
 import {localize, translate} from "../localize"
 import {locales} from "./locales"
 import {htmlspecialchars, htmlspecialchars_decode} from "./utils";
-import {SimpleModal} from "./modal";
+import reportCss from './report.css?inline'
 
 export class Report {
     #app = null
 
+    #modalContainer = null
     #selector = null
     #insertType = null
     #reportModalCode = ""
 
-    #modal = null
     #baseUrl = null
+
+    #reportModal = null;
+    #messageModal = null;
 
     #fixButton = null;
     #fixButtonHandler = null;
@@ -26,11 +29,6 @@ export class Report {
         this.#selector = selector
         this.#insertType = insertType
         this.#reportModalCode = localize(reportModalTemplate, locales)
-
-        this.#modal = new SimpleModal()
-        this.#modal.onClose(() => {
-            this.#modalIsOpened = false
-        })
     }
 
     setBaseUrl(url) {
@@ -38,7 +36,22 @@ export class Report {
     }
 
     init() {
-        document.body.insertAdjacentHTML("beforeend", this.#reportModalCode);
+        this.#modalContainer = document.createElement('div');
+        document.body.appendChild(this.#modalContainer);
+
+        const shadow = this.#modalContainer.attachShadow({ mode: "open" })
+        const sheet = new CSSStyleSheet();
+        sheet.replaceSync(reportCss);
+        shadow.adoptedStyleSheets = [sheet];
+
+        shadow.innerHTML = this.#reportModalCode
+
+        this.#reportModal = this.#modalContainer.shadowRoot.getElementById("feedbackie-mistakes-report-modal");
+        const _this = this
+        this.#reportModal.addEventListener('close', function() {
+           _this.#modalIsOpened = false
+        });
+        this.#messageModal = this.#modalContainer.shadowRoot.getElementById("report-result-modal");
 
         this.#insertNotificationAboutReporting()
         this.#registerReportingBindings()
@@ -76,7 +89,7 @@ export class Report {
 
                 let textForCheckLength = selectionInfo.selectedText.replace(/(<([^>]+)>)/gi, "");
                 if (textForCheckLength.length > 512) {
-                    this.#openMessageModalWithText("you_have_selected_too_many_text")
+                    this.#openMessageModalWithText("error", "you_have_selected_too_many_text")
 
                     return;
                 }
@@ -88,12 +101,12 @@ export class Report {
         });
 
 
-        let submit = document.getElementById("report-submit");
-        let commentElement = document.getElementById("report-comment")
-        let textElement = document.getElementById('report-selected-text')
-        let fullTextElement = document.getElementById('report-full-text')
-        let selectedTextElement = document.getElementById('report-orig-selected-text')
-        let offsetElement = document.getElementById('report-offset')
+        let submit = this.#modalContainer.shadowRoot.getElementById("report-submit");
+        let commentElement = this.#modalContainer.shadowRoot.getElementById("report-comment")
+        let textElement = this.#modalContainer.shadowRoot.getElementById('report-selected-text')
+        let fullTextElement = this.#modalContainer.shadowRoot.getElementById('report-full-text')
+        let selectedTextElement = this.#modalContainer.shadowRoot.getElementById('report-orig-selected-text')
+        let offsetElement = this.#modalContainer.shadowRoot.getElementById('report-offset')
 
         submit.addEventListener("click", function () {
             let comment = commentElement.value
@@ -104,7 +117,7 @@ export class Report {
 
             let text = _this.#sanitizeSelectedText(fullText)
 
-            _this.#modal.close("#report-mistake-modal")
+            _this.#reportModal.close()
 
             _this.#sendReportAboutMistake(selectedText, text, fixedText, comment, offset)
         }, false)
@@ -114,34 +127,30 @@ export class Report {
         const selectedText = selectionInfo.selectedText;
         const fullText = selectionInfo.extendedText;
 
-        let submit = document.getElementById("report-submit");
-        let commentElement = document.getElementById("report-comment")
+        let submit = this.#modalContainer.shadowRoot.getElementById("report-submit");
+        let commentElement = this.#modalContainer.shadowRoot.getElementById("report-comment")
         commentElement.value = ""
 
-        let textElement = document.getElementById('report-selected-text')
+        let textElement = this.#modalContainer.shadowRoot.getElementById('report-selected-text')
         textElement.innerHTML = fullText;
 
-        let fullTextElement = document.getElementById('report-full-text')
+        let fullTextElement = this.#modalContainer.shadowRoot.getElementById('report-full-text')
         fullTextElement.value = fullText;
 
-        let originalSelectedElement = document.getElementById('report-orig-selected-text')
+        let originalSelectedElement = this.#modalContainer.shadowRoot.getElementById('report-orig-selected-text')
         originalSelectedElement.value = selectedText;
 
-        let offsetElement = document.getElementById('report-offset')
+        let offsetElement = this.#modalContainer.shadowRoot.getElementById('report-offset')
         offsetElement.value = selectionInfo.offset;
 
-        this.#modal.open("#report-mistake-modal")
-        setTimeout(function () {
-            submit.focus()
-        }, 200);
-
+        this.#reportModal.showModal();
         this.#modalIsOpened = true
     }
 
-    #openMessageModalWithText(key) {
-        document.getElementById("report-result-message").innerText = translate(key, locales)
-
-        this.#modal.open("#report-result-modal")
+    #openMessageModalWithText(title, text) {
+        this.#modalContainer.shadowRoot.getElementById("report-result-title").innerText = translate(title, locales)
+        this.#modalContainer.shadowRoot.getElementById("report-result-message").innerText = translate(text, locales)
+        this.#messageModal.showModal()
     }
 
     async #sendReportAboutMistake(selectedText, fullText, fixedText, comment, offset) {
@@ -167,16 +176,19 @@ export class Report {
             })
 
             let messageKey
+            let titleKey
             if (response.ok) {
+                titleKey = "thank_you"
                 messageKey = "your_message_has_been_sent_successfully_thank_you"
             } else {
+                titleKey = "error"
                 messageKey = "sorry_but_something_went_wrong_you_can_try_send_the_feedback_later"
             }
 
-            this.#openMessageModalWithText(messageKey)
+            this.#openMessageModalWithText(titleKey, messageKey)
 
         } catch (e) {
-            this.#openMessageModalWithText("sorry_but_something_went_wrong_you_can_try_send_the_feedback_later")
+            this.#openMessageModalWithText("error", "sorry_but_something_went_wrong_you_can_try_send_the_feedback_later")
             throw e
         }
     }
@@ -240,6 +252,14 @@ export class Report {
         const selection = window.getSelection();
         const selectedText = htmlspecialchars(selection.toString());
 
+        if(selectedText.length === 0) {
+            return {
+                offset: 0,
+                selectedText: selectedText,
+                extendedText: ""
+            };
+        }
+
         const range = selection.getRangeAt(0);
         const extendedRange = range.cloneRange();
         this.#extendRange(extendedRange)
@@ -291,15 +311,20 @@ export class Report {
 
         this.#fixButtonHandler = () => {
             const selectionInfo = this.#getSelectedText();
-            if (selectionInfo.selectedText.length > 0) {
-                if (this.#modalIsOpened) {
-                    return;
-                }
 
-                this.#openReportModal(selectionInfo);
+            if (selectionInfo.selectedText.length === 0) {
+                this.#openMessageModalWithText("error", "cant_get_selected_text")
 
-                this.#fixButton.style.display = 'none';
+                return;
             }
+
+            if (this.#modalIsOpened) {
+                return;
+            }
+
+            this.#openReportModal(selectionInfo);
+
+            this.#fixButton.style.display = 'none';
         };
         this.#fixButton.addEventListener('click', this.#fixButtonHandler);
 

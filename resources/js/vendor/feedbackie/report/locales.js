@@ -6,9 +6,12 @@ let locales = {
         "send",
         "close",
         "you_have_selected_too_many_text",
+        "thank_you",
+        "error",
         "your_message_has_been_sent_successfully_thank_you",
         "sorry_but_something_went_wrong_you_can_try_send_the_feedback_later",
         "found_a_mistake_in_the_text_let_us_know_about_that_highlight_the_text_with_the_mistake_and_press_ctrl_enter_or_button",
+        "cant_get_selected_text",
     ],
     "en": {
         suggest_corrections_for_the_text: "Suggest corrections for the text",
@@ -17,9 +20,12 @@ let locales = {
         send: "Send",
         close: "Close",
         you_have_selected_too_many_text: "You have selected too many text!",
-        your_message_has_been_sent_successfully_thank_you: "Your message has been sent successfully. Thank you!",
+        thank_you: "Thank you!",
+        error: "Error",
+        your_message_has_been_sent_successfully_thank_you: "Your message has been sent successfully.",
         sorry_but_something_went_wrong_you_can_try_send_the_feedback_later: "Sorry, but something went wrong. You can try send the feedback later.",
         found_a_mistake_in_the_text_let_us_know_about_that_highlight_the_text_with_the_mistake_and_press_ctrl_enter_or_button: "Found a mistake in the text? Let us know about that. Highlight the text with the mistake and press Ctrl+Enter or ✏️ button.",
+        cant_get_selected_text: "Unable to get selected text!",
     },
     "uk": {
         suggest_corrections_for_the_text: "Запропонувати виправлення",
@@ -28,9 +34,12 @@ let locales = {
         send: "Відправити",
         close: "Закрити",
         you_have_selected_too_many_text: "Ви вибрали забагато тексту!",
-        your_message_has_been_sent_successfully_thank_you: "Ваше повідомлення відправлено успішно. Дякуємо!",
+        thank_you: "Дякуємо!",
+        error: "Помилка",
+        your_message_has_been_sent_successfully_thank_you: "Ваше повідомлення відправлено успішно.",
         sorry_but_something_went_wrong_you_can_try_send_the_feedback_later: "Нажаль не вдалось відправити повідомлення, спробуйте пізніше",
-        found_a_mistake_in_the_text_let_us_know_about_that_highlight_the_text_with_the_mistake_and_press_ctrl_enter_or_button: "Знайшли помилку в статті? Повідомте про неї. Виділіть текст мишкою та натисніть Ctrl+Enter або кнопку зі значком ✏️."
+        found_a_mistake_in_the_text_let_us_know_about_that_highlight_the_text_with_the_mistake_and_press_ctrl_enter_or_button: "Знайшли помилку в статті? Повідомте про неї. Виділіть текст мишкою та натисніть Ctrl+Enter або кнопку зі значком ✏️.",
+        cant_get_selected_text: "Не вдалось отримати виділений текст, виділіть текст та спробуйте ще раз.",
     },
     "ru": {
         suggest_corrections_for_the_text: "Предложить исправления",
@@ -38,10 +47,13 @@ let locales = {
         comment: "Комментарий:",
         send: "Отправить",
         close: "Закрыть",
+        thank_you: "Спасибо!",
+        error: "Ошибка",
         you_have_selected_too_many_text: "Вы выделили слишком много текста!",
-        your_message_has_been_sent_successfully_thank_you: "Ваше сообщение отправлено успешно. Спасибо!",
+        your_message_has_been_sent_successfully_thank_you: "Ваше сообщение отправлено успешно.",
         sorry_but_something_went_wrong_you_can_try_send_the_feedback_later: "К сожалению не удалось отправить сообщение. Попробуйте позже.",
-        found_a_mistake_in_the_text_let_us_know_about_that_highlight_the_text_with_the_mistake_and_press_ctrl_enter_or_button: "Обнаружили ошибку в тексте? Сообщите нам об этом. Выделите текст с ошибкой и нажмите Ctrl+Enter или кнопку со значком ✏️."
+        found_a_mistake_in_the_text_let_us_know_about_that_highlight_the_text_with_the_mistake_and_press_ctrl_enter_or_button: "Обнаружили ошибку в тексте? Сообщите нам об этом. Выделите текст с ошибкой и нажмите Ctrl+Enter или кнопку со значком ✏️.",
+        cant_get_selected_text: "Не удалось получить выделенный текст. Выделите текст и попробуйте ещё раз",
     },
 }
 
