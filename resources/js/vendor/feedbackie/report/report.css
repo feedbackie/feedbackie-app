@@ -53,9 +53,17 @@
     margin-right: 10px;
 }
 
+.report-modal-btn-submit:hover {
+    background-color: #710000 !important;
+}
+
 .report-modal-btn-close {
-    background-color: #1a1a1a !important;
+    background-color: #1d1d1d !important;
     color: #ededed !important;
+}
+
+.report-modal-btn-close:hover {
+    background-color: #171717 !important;
 }
 
 #report-selected-text {
@@ -75,6 +83,10 @@
     max-width: 100%;
     width: 100%;
     box-sizing: border-box;
+}
+
+#report-selected-text:focus-visible, #report-comment:focus-visible {
+    outline: 2px solid #666666;
 }
 
 .report-form-label {

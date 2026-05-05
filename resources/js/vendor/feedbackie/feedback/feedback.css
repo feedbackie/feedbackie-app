@@ -239,6 +239,7 @@ button.sm-question-answer {
     padding: 6px 16px;
     border: none;
     background-color: #dbdbdb;
+    color: black;
 }
 
 button.sm-question-answer:hover {

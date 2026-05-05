@@ -297,6 +297,7 @@ export class Report {
     }
 
     #addFixButtonOnSelection() {
+        const _this = this
         if (this.#fixButton) return; // Already added
         this.#fixButton = document.createElement('button');
         this.#fixButton.innerText = '✏️';
@@ -314,36 +315,57 @@ export class Report {
         this.#fixButton.style.cursor = 'pointer';
         document.body.appendChild(this.#fixButton);
 
-        this.#fixButtonHandler = () => {
-            const selectionInfo = this.#getSelectedText();
+        this.#fixButtonHandler = function() {
+            const selectionInfo = _this.#getSelectedText();
 
             if (selectionInfo.selectedText.length === 0) {
-                this.#openMessageModalWithText("error", "cant_get_selected_text")
+                _this.#openMessageModalWithText("error", "cant_get_selected_text")
 
                 return;
             }
 
-            if (this.#modalIsOpened) {
+            if (_this.#modalIsOpened) {
                 return;
             }
 
-            this.#openReportModal(selectionInfo);
+            _this.#openReportModal(selectionInfo);
 
-            this.#fixButton.style.display = 'none';
+            _this.#fixButton.style.display = 'none';
         };
         this.#fixButton.addEventListener('click', this.#fixButtonHandler);
 
-        document.addEventListener('selectionchange', () => {
-            if (this.#modalIsOpened) {
+        document.addEventListener('selectionchange', function() {
+            if (_this.#modalIsOpened) {
                 return;
             }
 
             const selection = window.getSelection();
             if (selection && selection.toString().trim().length > 0) {
-                this.#fixButton.style.display = 'block';
+                _this.#fixButton.style.display = 'block';
+                _this.#fixButton.style.top = _this.#calculateFixButtonCursorVerticalPosition(selection) + "px"
             } else {
-                this.#fixButton.style.display = 'none';
+                _this.#fixButton.style.display = 'none';
             }
         });
+    }
+
+    #calculateFixButtonCursorVerticalPosition(selection){
+        if (!selection || selection.rangeCount === 0 || selection.isCollapsed) {
+            return 120;
+        }
+
+        const range = selection.getRangeAt(0);
+        const rect = range.getBoundingClientRect();
+        const mouseY = rect.top;
+
+        if(mouseY < 170){
+            return 120
+        }
+
+        if(mouseY > window.innerHeight - 120){
+            return window.innerHeight - 120
+        }
+
+        return mouseY - 50
     }
 }

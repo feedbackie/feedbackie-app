@@ -234,7 +234,7 @@ export class Feedback {
     }
 
     #_hideBasicPopupWithError() {
-        this.#questionContainer.style.display = "none";
+        /*this.#questionContainer.style.display = "none";*/
         this.#questionContainer.innerHTML = translate("something_went_wrong", locales)
     }
 
