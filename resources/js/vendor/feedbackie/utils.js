@@ -8,4 +8,22 @@ function getCurrentTime() {
     return Math.floor(Date.now() / 1000)
 }
 
-export {generateSessionId, getCurrentTime}
+function addShadowStyles(root, css) {
+    if ('adoptedStyleSheets' in root && 'replaceSync' in CSSStyleSheet.prototype) {
+        const sheet = new CSSStyleSheet();
+        sheet.replaceSync(css);
+
+        root.adoptedStyleSheets = [
+            ...root.adoptedStyleSheets,
+            sheet,
+        ];
+
+        return;
+    }
+
+    const style = document.createElement('style');
+    style.textContent = css;
+    root.appendChild(style);
+}
+
+export {generateSessionId, getCurrentTime, addShadowStyles}

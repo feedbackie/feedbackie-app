@@ -142,7 +142,7 @@ function loadLocales () {
     const localesFromConfig = window.feedbackie_settings.feedback_locales || []
     localesFromConfig.forEach(function (value, index) {
         if (typeof locales[index] !== undefined) {
-            locales[index].forEach(function (localization, key) {
+            locales.keys.forEach(function (localization, key) {
                 locales[index][key] = localization
             })
         } else {

@@ -176,6 +176,23 @@ textarea#sm-helpful-comment:focus {
     line-height: 1;
 }
 
+.sm-extended-close-button {
+    appearance: none;
+    background: transparent;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    color: #000;
+    cursor: pointer;
+    font-size: 20px;
+    height: 30px;
+}
+
+.close:focus-visible {
+    outline: 2px solid #555;
+    outline-offset: 2px;
+}
+
 #sm-question-close-button {
     visibility: hidden;
 }
@@ -286,6 +303,10 @@ button.sm-question-answer:hover {
     .close {
         color: #ccced1 !important;
     }
+    .sm-extended-close-button {
+        color: #ccced1 !important;
+    }
+
 
     .sm-helpful-extended-label,
     .sm-helpful-comment-label {

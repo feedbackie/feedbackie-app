@@ -2,6 +2,7 @@ import {reportModalTemplate} from "./templates";
 import {localize, translate} from "../localize"
 import {locales} from "./locales"
 import {htmlspecialchars, htmlspecialchars_decode} from "./utils";
+import {addShadowStyles} from "../utils.js";
 import reportCss from './report.css?inline'
 
 export class Report {
@@ -40,10 +41,7 @@ export class Report {
         document.body.appendChild(this.#modalContainer);
 
         const shadow = this.#modalContainer.attachShadow({ mode: "open" })
-        const sheet = new CSSStyleSheet();
-        sheet.replaceSync(reportCss);
-        shadow.adoptedStyleSheets = [sheet];
-
+        addShadowStyles(shadow, reportCss)
         shadow.innerHTML = this.#reportModalCode
 
         this.#reportModal = this.#modalContainer.shadowRoot.getElementById("feedbackie-mistakes-report-modal");
@@ -88,6 +86,13 @@ export class Report {
                 const selectionInfo = this.#getSelectedText();
 
                 let textForCheckLength = selectionInfo.selectedText.replace(/(<([^>]+)>)/gi, "");
+
+                if (textForCheckLength.length === 0) {
+                    this.#openMessageModalWithText("error", "cant_get_selected_text")
+
+                    return;
+                }
+
                 if (textForCheckLength.length > 512) {
                     this.#openMessageModalWithText("error", "you_have_selected_too_many_text")
 

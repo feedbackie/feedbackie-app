@@ -5,6 +5,7 @@ import {statisticsTemplate} from "./templates";
 import {localize} from "../localize"
 import {translate} from "../localize"
 import {locales} from "./locales"
+import {addShadowStyles} from "../utils.js";
 import feedbackCss from './feedback.css?inline'
 
 export class Feedback {
@@ -50,9 +51,7 @@ export class Feedback {
         }
 
         const shadow = this.#container.attachShadow({ mode: "open" })
-        const sheet = new CSSStyleSheet();
-        sheet.replaceSync(feedbackCss);
-        shadow.adoptedStyleSheets = [sheet];
+        addShadowStyles(shadow, feedbackCss)
 
         const shadowContainer = document.createElement("div");
         shadowContainer.innerHTML = this.#basicPopupCode
@@ -198,7 +197,6 @@ export class Feedback {
         const _this = this
         const extendedCloseBtn = this.#container.shadowRoot.getElementById("sm-extended-close-button")
 
-
         if (_this.#isSticky) {
             const bodyElements = _this.#container.shadowRoot.querySelectorAll('.sm-extended-feedback-body')
             bodyElements.forEach(function(bodyElement) {
@@ -221,7 +219,12 @@ export class Feedback {
                 return;
             }
 
-            _this.#_sendExtendedFeedback()
+            const result = _this.#_sendExtendedFeedback()
+            _this.#_hideExtendedPopup()
+
+            if(result === false){
+                _this.#questionContainer.innerHTML = translate("something_went_wrong", locales)
+            }
         })
     }
 
@@ -273,16 +276,20 @@ export class Feedback {
                 "body": JSON.stringify(params)
             })
 
-            if (response.status === 200) {
-                let data = await response.json();
-                if (data.success) {
-                    this.#feedbackRecordId = data.id
+            if (response.status !== 200) {
+                return null
+            }
 
-                    return {
-                        usefulCount: data.useful_count ?? 0,
-                        notUsefulCount: data.not_useful_count ?? 0,
-                    }
-                }
+            let data = await response.json();
+            if (!data.success) {
+                return null
+            }
+
+            this.#feedbackRecordId = data.id
+
+            return {
+               usefulCount: data.useful_count ?? 0,
+               notUsefulCount: data.not_useful_count ?? 0,
             }
         } catch (e) {
             return null
@@ -322,10 +329,10 @@ export class Feedback {
                 "method": "PUT",
                 "body": JSON.stringify(params)
             })
+
+            return response.status === 200;
         } catch (e) {
-
+            return false
         }
-
-        this.#_hideExtendedPopup()
     }
 }
