@@ -9,7 +9,7 @@ use Feedbackie\Core\Models\Feedback;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory<\App\Models\Feedback>
+ * @extends Factory<\Feedbackie\Core\Models\Feedback>
  */
 class FeedbackFactory extends Factory
 {
