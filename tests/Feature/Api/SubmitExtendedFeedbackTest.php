@@ -32,7 +32,6 @@ class SubmitExtendedFeedbackTest extends TestCase
             ->create();
 
         $comment = fake()->realText(500);
-        $score = (string)rand(0, 4);
 
         $options = array_map(function (FeedbackOptions $option) {
             return $option->value;
@@ -41,7 +40,6 @@ class SubmitExtendedFeedbackTest extends TestCase
         $response = $this->put("/api/site/$siteId/feedback/" . $feedback->getKey(), [
             'options' => $options,
             'comment' => $comment,
-            'language_score' => $score,
         ]);
 
         $response->assertSuccessful();
@@ -50,7 +48,6 @@ class SubmitExtendedFeedbackTest extends TestCase
             'id' => $feedback->getKey(),
             'options' => json_encode($options),
             'comment' => $comment,
-            'language_score' => $score,
         ]);
     }
 
@@ -78,7 +75,6 @@ class SubmitExtendedFeedbackTest extends TestCase
         $response = $this->put("/api/site/$siteId/feedback/" . $feedback->getKey(), [
             'options' => $options,
             'comment' => $comment,
-            'language_score' => null,
         ]);
 
         $response->assertSuccessful();
@@ -87,7 +83,6 @@ class SubmitExtendedFeedbackTest extends TestCase
             'id' => $feedback->getKey(),
             'options' => json_encode($options),
             'comment' => $comment,
-            'language_score' => null,
         ]);
     }
 
@@ -115,7 +110,6 @@ class SubmitExtendedFeedbackTest extends TestCase
         $response = $this->put("/api/site/$siteId/feedback/" . $feedback->getKey(), [
             'options' => $options,
             'comment' => $comment,
-            'language_score' => "0",
         ]);
 
         $response->assertSuccessful();
@@ -124,7 +118,6 @@ class SubmitExtendedFeedbackTest extends TestCase
             'id' => $feedback->getKey(),
             'options' => json_encode($options),
             'comment' => $comment,
-            'language_score' => 0,
         ]);
     }
 
@@ -150,7 +143,6 @@ class SubmitExtendedFeedbackTest extends TestCase
         $response = $this->put("/api/site/$siteId/feedback/" . $feedback->getKey(), [
             'options' => $options,
             'comment' => null,
-            'language_score' => null,
         ]);
 
         $response->assertSuccessful();
@@ -159,7 +151,6 @@ class SubmitExtendedFeedbackTest extends TestCase
             'id' => $feedback->getKey(),
             'options' => json_encode($options),
             'comment' => null,
-            'language_score' => null,
         ]);
     }
 }

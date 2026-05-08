@@ -9,6 +9,8 @@ export class Report {
     #app = null
 
     #modalContainer = null
+    #displayMessage = true
+    #displayButton = true
     #selector = null
     #insertType = null
     #reportModalCode = ""
@@ -23,9 +25,12 @@ export class Report {
 
     #modalIsOpened = false
 
-    constructor(app, selector, insertType) {
+    constructor(app, displayMessage, displayButton, selector, insertType) {
         this.#app = app
         this.#baseUrl = app.getBaseUrl()
+
+        this.#displayMessage = displayMessage
+        this.#displayButton = displayButton
 
         this.#selector = selector
         this.#insertType = insertType
@@ -57,6 +62,10 @@ export class Report {
     }
 
     #insertNotificationAboutReporting() {
+        if(this.#displayMessage === false) {
+            return
+        }
+
         if (this.#selector === null) {
             return
         }
@@ -169,6 +178,7 @@ export class Report {
             ss: this.#app.getSessionId(),
             ls: this.#app.getLoadedTime(),
             ts: this.#app.getCurrentTime(),
+            version: this.#app.getVersion(),
         }
 
         try {
@@ -297,6 +307,10 @@ export class Report {
     }
 
     #addFixButtonOnSelection() {
+        if(this.#displayButton === false) {
+            return
+        }
+
         const _this = this
         if (this.#fixButton) return; // Already added
         this.#fixButton = document.createElement('button');

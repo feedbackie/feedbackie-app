@@ -18,10 +18,6 @@ class EncryptionConfiguration
 
     public static function loadEncryptionKey(): ?string
     {
-        if (env('APP_KEY', false) !== false) {
-            return env('APP_KEY');
-        }
-
         if (false === file_exists(storage_path(''))) {
             return null;
         }

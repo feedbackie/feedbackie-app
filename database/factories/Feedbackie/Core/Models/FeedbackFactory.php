@@ -41,6 +41,34 @@ class FeedbackFactory extends Factory
         });
     }
 
+    public function url(string $url): self
+    {
+        return $this->state(function (array $attributes) use($url) : array {
+            return [
+                'url' => $url,
+                'url_hash' => md5($url),
+            ];
+        });
+    }
+
+    public function helpful()
+    {
+        return $this->state(function (array $attributes): array {
+            return [
+                'answer' => 'yes',
+            ];
+        });
+    }
+
+    public function notHelpful()
+    {
+        return $this->state(function (array $attributes): array {
+            return [
+                'answer' => 'no',
+            ];
+        });
+    }
+
     private function getRandomAnswer(): string
     {
         return rand(0, 1) === 1 ? "yes" : "no";

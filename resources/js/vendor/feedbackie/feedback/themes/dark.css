@@ -1,0 +1,145 @@
+.sm-question-popup {
+    background: #f2f2f2;
+    color: #363636;
+}
+
+.sm-helpful-extended-popup {
+    background: #f2f2f2;
+    color: #363636;
+}
+
+.sm-extended-feedback-title {
+    color: #363636;
+}
+
+.sm-extended-feedback-body {
+    scrollbar-color: #888888 #d6d6d6;
+    background: #fafafa;
+    border-top: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.sm-helpful-comment-label,
+.sm-helpful-extended-label {
+    color: #363636;
+}
+
+#sm-helpful-comment-container textarea,
+.sm-helpful-comment textarea,
+textarea#sm-helpful-comment {
+    border: 1px solid #d1d5db;
+    background: #fff;
+    color: #222;
+    box-shadow: 0 1px 2px rgba(60, 60, 60, 0.04);
+}
+
+#sm-helpful-comment-container textarea:focus,
+.sm-helpful-comment textarea:focus,
+textarea#sm-helpful-comment:focus {
+    border: 1.5px solid #545454;
+    box-shadow: 0 2px 8px rgba(235, 166, 37, 0.1);
+    background: #fff;
+}
+
+.sm-submit-buttons {
+    background-color: #dbdbdb;
+}
+
+.sm-submit-buttons:hover {
+    background-color: #a9a9a9;
+}
+
+.close {
+    color: #000;
+}
+
+.sm-extended-close-button {
+    background: transparent;
+    color: #000;
+}
+
+.close:focus-visible {
+    outline: 2px solid #555;
+}
+
+.sm-helpful__overlay {
+    background: rgba(0, 0, 0, .6);
+}
+
+button.sm-question-answer {
+    background-color: #dbdbdb;
+    color: black;
+}
+
+button.sm-question-answer:hover {
+    background-color: #a9a9a9;
+}
+
+.sm-powered-by {
+    color: #888;
+}
+
+.sm-powered-by a {
+    color: #888;
+}
+
+.sm-powered-by a:hover {
+    color: #666;
+}
+
+.sm-question-popup,
+.sm-helpful-extended-popup,
+.sm-not-helpful-extended-popup {
+    background: #080808 !important;
+    color: #ccced1 !important;
+}
+
+.sm-extended-feedback-header,
+.sm-extended-feedback-footer {
+    background: #080808 !important;
+    color: #ccced1 !important;
+}
+
+.sm-extended-feedback-body {
+    background: #121212 !important;
+    color: #ccced1 !important;
+    border-top: 1px solid #333 !important;
+    border-bottom: 1px solid #333 !important;
+    scrollbar-color: #393939 #7F7F7F;
+}
+
+.sm-extended-feedback-title {
+    color: #ccced1 !important;
+}
+
+.close {
+    color: #ccced1 !important;
+}
+
+.sm-extended-close-button {
+    color: #ccced1 !important;
+}
+
+.sm-helpful-extended-label,
+.sm-helpful-comment-label {
+    color: #ccced1 !important;
+}
+
+#sm-helpful-comment-container textarea,
+.sm-helpful-comment textarea,
+textarea#sm-helpful-comment {
+    background: #2d2d2d;
+    color: #e5e7eb;
+    border: 1px solid #444;
+}
+
+#sm-helpful-comment-container textarea:focus,
+.sm-helpful-comment textarea:focus,
+textarea#sm-helpful-comment:focus {
+    border: 1.5px solid #545454;
+    background: #2d2d2d;
+}
+
+.sm-submit-buttons {
+    color: #23272e;
+}

@@ -7,12 +7,16 @@ import {translate} from "../localize"
 import {locales} from "./locales"
 import {addShadowStyles} from "../utils.js";
 import feedbackCss from './feedback.css?inline'
+import darkTheme from './themes/dark.css?inline'
+import lightTheme from './themes/light.css?inline'
+import adaptiveTheme from './themes/adaptive.css?inline'
 
 export class Feedback {
     #app = null
 
     #selector = ""
     #insertType = "afterend"
+    #theme = "adaptive"
     #container = null
     #questionContainer = null
     #extendedContainer = null
@@ -25,11 +29,12 @@ export class Feedback {
     #feedbackRecordId = null
 
     #stickyRatio = 0.25
+    #stickyPercent = 0.50
     #isSticky = false
 
     #displayPoweredBy = false
 
-    constructor(app, selector, insertType, stickyRatio, displayPoweredBy) {
+    constructor(app, selector, insertType, theme, stickyRatio, stickyPercent, displayPoweredBy) {
         this.#app = app
         this.#baseUrl = app.getBaseUrl()
         this.#selector = selector
@@ -38,8 +43,10 @@ export class Feedback {
         this.#codeForYesAnswer = localize(extendedYesTemplate, locales)
         this.#codeForNoAnswer = localize(extendedNoTemplate, locales)
         this.#stickyRatio = stickyRatio
+        this.#stickyPercent = stickyPercent
         this.#isSticky = false
         this.#displayPoweredBy = displayPoweredBy
+        this.#theme = theme
     }
 
     init() {
@@ -52,6 +59,13 @@ export class Feedback {
 
         const shadow = this.#container.attachShadow({ mode: "open" })
         addShadowStyles(shadow, feedbackCss)
+        if(this.#theme === "dark"){
+            addShadowStyles(shadow, darkTheme)
+        }else if(this.#theme === "light"){
+            addShadowStyles(shadow, lightTheme)
+        }else{
+            addShadowStyles(shadow, adaptiveTheme)
+        }
 
         const shadowContainer = document.createElement("div");
         shadowContainer.innerHTML = this.#basicPopupCode
@@ -105,7 +119,7 @@ export class Feedback {
                 return;
             }
 
-            if (_this.#_getScrollPercent() > 50) {
+            if (_this.#_getScrollPercent() > (_this.#stickyPercent * 100)) {
                 popupAlreadyWasSticky = true
                 _this.#container.style.position = "sticky"
                 _this.#container.style.bottom = 0
@@ -264,6 +278,7 @@ export class Feedback {
             ss: this.#app.getSessionId(),
             ls: this.#app.getLoadedTime(),
             ts: this.#app.getCurrentTime(),
+            version: this.#app.getVersion(),
         }
 
         try {
@@ -318,6 +333,7 @@ export class Feedback {
             "ss": this.#app.getSessionId(),
             "ls": this.#app.getLoadedTime(),
             "ts": this.#app.getCurrentTime(),
+            "version": this.#app.getVersion(),
         }
 
         try {

@@ -6,13 +6,15 @@ class App {
     #session = null
     #siteId = null
     #baseUrl = null
+    #version = null
 
-    constructor(settings) {
+    constructor(settings, version) {
         this.#loaded = getCurrentTime()
         this.#session = generateSessionId()
 
         this.#siteId = settings.site_id || null
         this.#baseUrl = settings.base_url || null
+        this.#version = version
     }
 
     getSessionId() {
@@ -37,6 +39,10 @@ class App {
         }
 
         return this.#baseUrl + "/"
+    }
+
+    getVersion() {
+        return this.#version
     }
 }
 
