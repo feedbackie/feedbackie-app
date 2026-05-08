@@ -15,7 +15,7 @@ window.feedbackie_settings.feedback_widget_insert_type = window.feedbackie_setti
 window.feedbackie_settings.feedback_widget_anchor_selector = window.feedbackie_settings.feedback_widget_anchor_selector || null
 window.feedbackie_settings.feedback_widget_theme = window.feedbackie_settings.feedback_widget_theme || "adaptive"
 window.feedbackie_settings.feedback_sticky_ratio = window.feedbackie_settings.feedback_sticky_ratio || 0
-window.feedbackie_settings.feedback_sticky_persent = window.feedbackie_settings.feedback_sticky_persent || 0.50
+window.feedbackie_settings.feedback_sticky_percent = window.feedbackie_settings.feedback_sticky_percent || 0.50
 window.feedbackie_settings.feedback_locales = window.feedbackie_settings.feedback_locales || []
 
 import {Feedback} from "./feedback/feedback"
@@ -32,7 +32,7 @@ import {App} from "./app/app"
             window.feedbackie_settings.feedback_widget_insert_type,
             window.feedbackie_settings.feedback_widget_theme,
             window.feedbackie_settings.feedback_sticky_ratio,
-            window.feedbackie_settings.feedback_sticky_persent,
+            window.feedbackie_settings.feedback_sticky_percent,
             window.feedbackie_settings.display_powered_by,
         )
         feedback.init()

@@ -34,7 +34,7 @@ return [
     'env' => env('APP_ENV', 'production'),
 
     'admin' => [
-        'path' => env('ADMIN_PATH', 'app'),
+        'path' => env('ADMIN_PATH', 'admin'),
         'email' => SecretsConfiguration::readFromEnvOrSecret('ADMIN_EMAIL', 'admin@feedbackie.app'),
         'password' => SecretsConfiguration::readFromEnvOrSecret('ADMIN_PASSWORD', 'password'),
     ],
