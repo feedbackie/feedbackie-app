@@ -2,7 +2,7 @@ let reportModalTemplate = `
 <dialog id="feedbackie-mistakes-report-modal" class="feedbackie-modal">
    <div class="report-modal-header">
         <h1>{{suggest_corrections_for_the_text}}</h1>
-        <button commandfor="feedbackie-mistakes-report-modal" command="close"  class="feedbackie-modal-close" onclick="this.closest('dialog').close()" aria-label="{{close}}"></button>
+        <button commandfor="feedbackie-mistakes-report-modal" command="close"  class="feedbackie-modal-close close-by-js" aria-label="{{close}}"></button>
    </div>
    <div class="report-modal-body">
        <p style="margin-bottom: 15px; margin-top: 20px;">
@@ -22,7 +22,7 @@ let reportModalTemplate = `
    <div class="report-modal-footer">
       <div class="report-buttons">
         <button id="report-submit" class="report-modal-btn report-modal-btn-submit">{{send}}</button>
-        <button commandfor="feedbackie-mistakes-report-modal" command="close" class="report-modal-btn report-modal-btn-close" onclick="this.closest('dialog').close()">{{close}}</button>
+        <button commandfor="feedbackie-mistakes-report-modal" command="close" class="report-modal-btn report-modal-btn-close close-by-js">{{close}}</button>
       </div>
       <div class="report-powered-by">
       </div>
@@ -32,7 +32,7 @@ let reportModalTemplate = `
 <dialog id="report-result-modal" class="feedbackie-modal">
    <div class="report-modal-header">
         <h1 id="report-result-title"></h1>
-        <button commandfor="report-result-modal" command="close" class="feedbackie-modal-close" aria-label="{{close}}" onclick="this.closest('dialog').close()"></button>
+        <button commandfor="report-result-modal" command="close" class="feedbackie-modal-close close-by-js" aria-label="{{close}}"></button>
    </div>
    <div class="report-modal-body">
         <p id="report-result-message"></p>

@@ -400,4 +400,19 @@ export class Report {
             element.append(poweredByLink)
         })
     }
+
+    #_addJsCloseModalForBaackwardCompatibility() {
+        const _this = this
+        const closeButtons = this.#modalContainer.shadowRoot.querySelectorAll(".close-by-js")
+        closeButtons.forEach(function (button) {
+            button.addEventListener("click", function () {
+                if ('commandForElement' in HTMLButtonElement.prototype) {
+                    return;
+                }
+
+                const target = _this.#modalContainer.shadowRoot.getElementById(button.getAttribute('commandfor'));
+                target.close();
+            })
+        })
+    }
 }
