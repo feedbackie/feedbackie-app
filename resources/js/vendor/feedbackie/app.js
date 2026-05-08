@@ -45,6 +45,7 @@ import {App} from "./app/app"
             window.feedbackie_settings.report_display_button,
             window.feedbackie_settings.report_message_anchor_selector,
             window.feedbackie_settings.report_message_insert_type,
+            window.feedbackie_settings.display_powered_by,
         )
         report.init()
     }

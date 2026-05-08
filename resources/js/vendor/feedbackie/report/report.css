@@ -98,3 +98,28 @@
     color: #ededed;
     text-align: center;
 }
+
+.report-modal-footer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.report-powered-by {
+    display: inline;
+    float: right;
+    margin: 0 18px 0 0;
+    font-size: 11px;
+    color: #888;
+}
+
+.report-powered-by a {
+    text-decoration: none;
+    transition: color 0.2s;
+    color: #888;
+}
+
+.report-powered-by a:hover {
+    text-decoration: underline;
+    color: #666;
+}

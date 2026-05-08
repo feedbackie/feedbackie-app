@@ -13,6 +13,7 @@ export class Report {
     #displayButton = true
     #selector = null
     #insertType = null
+    #displayPoweredBy = false
     #reportModalCode = ""
 
     #baseUrl = null
@@ -25,7 +26,7 @@ export class Report {
 
     #modalIsOpened = false
 
-    constructor(app, displayMessage, displayButton, selector, insertType) {
+    constructor(app, displayMessage, displayButton, selector, insertType, displayPoweredBy) {
         this.#app = app
         this.#baseUrl = app.getBaseUrl()
 
@@ -35,6 +36,7 @@ export class Report {
         this.#selector = selector
         this.#insertType = insertType
         this.#reportModalCode = localize(reportModalTemplate, locales)
+        this.#displayPoweredBy = displayPoweredBy
     }
 
     setBaseUrl(url) {
@@ -59,6 +61,10 @@ export class Report {
         this.#insertNotificationAboutReporting()
         this.#registerReportingBindings()
         this.#addFixButtonOnSelection()
+
+        if(this.#displayPoweredBy === true) {
+            this.#_insertPoweredByLink()
+        }
     }
 
     #insertNotificationAboutReporting() {
@@ -381,5 +387,17 @@ export class Report {
         }
 
         return mouseY - 50
+    }
+
+    #_insertPoweredByLink() {
+        const poweredByContainers = this.#modalContainer.shadowRoot.querySelectorAll(".report-powered-by")
+        poweredByContainers.forEach(function (element) {
+            const poweredByLink = document.createElement("a")
+            poweredByLink.href = "https://feedbackie.app"
+            poweredByLink.innerText = translate('powered_by_feedbackie', locales)
+            poweredByLink.target = "_blank"
+
+            element.append(poweredByLink)
+        })
     }
 }

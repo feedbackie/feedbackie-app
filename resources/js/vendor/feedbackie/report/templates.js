@@ -20,8 +20,12 @@ let reportModalTemplate = `
         <input type="hidden" name="offset" id="report-offset" />
    </div>
    <div class="report-modal-footer">
-      <button id="report-submit" class="report-modal-btn report-modal-btn-submit">{{send}}</button>
-      <button commandfor="feedbackie-mistakes-report-modal" command="close" class="report-modal-btn report-modal-btn-close" onclick="this.closest('dialog').close()">{{close}}</button>
+      <div class="report-buttons">
+        <button id="report-submit" class="report-modal-btn report-modal-btn-submit">{{send}}</button>
+        <button commandfor="feedbackie-mistakes-report-modal" command="close" class="report-modal-btn report-modal-btn-close" onclick="this.closest('dialog').close()">{{close}}</button>
+      </div>
+      <div class="report-powered-by">
+      </div>
    </div>
 </dialog>
 
