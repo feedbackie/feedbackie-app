@@ -31,6 +31,7 @@ class AppPanelProvider extends PanelProvider
             ->default()
             ->id('app')
             ->path(\config('app.admin.path'))
+            ->favicon('/favicon.ico')
             ->login()
             ->colors([
                 'primary' => Color::Amber,
