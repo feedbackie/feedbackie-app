@@ -149,3 +149,21 @@ To configure the widgets, you need to define a JavaScript object named `feedback
 - `feedback_widget_insert_type` - method of inserting the feedback widget.
 - `feedback_widget_anchor_selector` - selector of the element to which the feedback widget will be inserted.
 - `feedback_widget_theme` - theme of the feedback widget. Available options are `light`, `dark`, and `adaptive`; the default is `adaptive`.
+
+## Widget examples
+
+Report about mistake message and button:
+
+![](./examples/mistake-report-message.png)
+
+Report about mistake modal:
+
+![](./examples/mistake-report-widget.png)
+
+Helpfulness feedback collection widget:
+
+![](./examples/helpfulness-feedback.png)
+
+Extended feedback collection widget:
+
+![](./examples/helpfulness-feedback-extended.png)
