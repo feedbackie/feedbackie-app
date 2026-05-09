@@ -44,7 +44,7 @@
     border: 0;
     cursor: pointer;
     line-height: 1.15;
-    margin: 0;
+    margin: 0 0 5px;
 }
 
 .report-modal-btn-submit {
@@ -121,4 +121,8 @@
 
 .report-powered-by a:hover {
     text-decoration: underline;
+}
+
+.report-modal-header > h1 {
+    line-break: anywhere;
 }
