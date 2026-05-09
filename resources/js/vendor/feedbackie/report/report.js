@@ -359,8 +359,18 @@ export class Report {
                 return;
             }
 
+            const activeElement = document.activeElement;
             const selection = window.getSelection();
             if (selection && selection.toString().trim().length > 0) {
+                if (
+                    activeElement instanceof HTMLInputElement ||
+                    activeElement instanceof HTMLTextAreaElement ||
+                    activeElement instanceof HTMLSelectElement ||
+                    activeElement?.isContentEditable
+                ) {
+                    return;
+                }
+
                 _this.#fixButton.style.display = 'block';
                 _this.#fixButton.style.top = _this.#calculateFixButtonCursorVerticalPosition(selection) + "px"
             } else {
