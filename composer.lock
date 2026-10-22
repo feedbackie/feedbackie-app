@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3aa6dfa1ec8ecf03cdf6f8c553aabfca",
+    "content-hash": "f91a6ce7b19f7bd80ff2b666a58c5a07",
     "packages": [
         {
             "name": "blade-ui-kit/blade-heroicons",
@@ -1044,6 +1044,48 @@
                 }
             ],
             "time": "2025-03-06T22:45:56+00:00"
+        },
+        {
+            "name": "feedbackie/api",
+            "version": "1.0.4",
+            "dist": {
+                "type": "path",
+                "url": "packages/feedbackie/api",
+                "reference": "5a9642f1457feeab4280af8e78d9e8ce2edec540"
+            },
+            "require": {
+                "ext-curl": "*",
+                "feedbackie/core": "*",
+                "laravel/sanctum": "^4.3",
+                "php": "^8.5"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Feedbackie\\Api\\Providers\\FeedbackieApiProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Feedbackie\\Api\\": "src/",
+                    "Tests\\": "tests/"
+                }
+            },
+            "license": [
+                "AGPL"
+            ],
+            "authors": [
+                {
+                    "name": "Seriyyy95",
+                    "email": "Seriyyy95@gmail.com"
+                }
+            ],
+            "description": "Integration API for Feedbackie App",
+            "transport-options": {
+                "relative": true
+            }
         },
         {
             "name": "feedbackie/core",
@@ -2521,6 +2563,81 @@
             "time": "2026-05-05T21:01:14+00:00"
         },
         {
+            "name": "laravel/mcp",
+            "version": "v1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/mcp.git",
+                "reference": "e77af70cd009aaa31455626bd463b0e7e39cfcf9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/mcp/zipball/e77af70cd009aaa31455626bd463b0e7e39cfcf9",
+                "reference": "e77af70cd009aaa31455626bd463b0e7e39cfcf9",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "ext-mbstring": "*",
+                "illuminate/console": "^11.45.3|^12.41.1|^13.0",
+                "illuminate/container": "^11.45.3|^12.41.1|^13.0",
+                "illuminate/contracts": "^11.45.3|^12.41.1|^13.0",
+                "illuminate/http": "^11.45.3|^12.41.1|^13.0",
+                "illuminate/json-schema": "^12.41.1|^13.0",
+                "illuminate/routing": "^11.45.3|^12.41.1|^13.0",
+                "illuminate/support": "^11.45.3|^12.41.1|^13.0",
+                "illuminate/validation": "^11.45.3|^12.41.1|^13.0",
+                "php": "^8.2",
+                "symfony/process": "^7.4.5|^8.0.5"
+            },
+            "require-dev": {
+                "jasonmccreary/double": "^1.0",
+                "laravel/pint": "^1.20",
+                "orchestra/testbench": "^9.15|^10.8|^11.0",
+                "pestphp/pest": "^3.8.5|^4.3.2",
+                "phpstan/phpstan": "^2.1.27",
+                "rector/rector": "^2.2.4"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "aliases": {
+                        "Mcp": "Laravel\\Mcp\\Facades\\Mcp"
+                    },
+                    "providers": [
+                        "Laravel\\Mcp\\Server\\McpServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Laravel\\Mcp\\": "src/",
+                    "Laravel\\Mcp\\Server\\": "src/Server/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylor@laravel.com"
+                }
+            ],
+            "description": "Rapidly build MCP servers for your Laravel applications.",
+            "homepage": "https://github.com/laravel/mcp",
+            "keywords": [
+                "laravel",
+                "mcp"
+            ],
+            "support": {
+                "issues": "https://github.com/laravel/mcp/issues",
+                "source": "https://github.com/laravel/mcp"
+            },
+            "time": "2026-10-21T11:50:42+00:00"
+        },
+        {
             "name": "laravel/prompts",
             "version": "v0.3.17",
             "source": {
@@ -2578,6 +2695,69 @@
                 "source": "https://github.com/laravel/prompts/tree/v0.3.17"
             },
             "time": "2026-04-20T16:07:33+00:00"
+        },
+        {
+            "name": "laravel/sanctum",
+            "version": "v4.3.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/sanctum.git",
+                "reference": "2a9bccc18e9907808e0018dd15fa643937886b1e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/sanctum/zipball/2a9bccc18e9907808e0018dd15fa643937886b1e",
+                "reference": "2a9bccc18e9907808e0018dd15fa643937886b1e",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "illuminate/console": "^11.0|^12.0|^13.0",
+                "illuminate/contracts": "^11.0|^12.0|^13.0",
+                "illuminate/database": "^11.0|^12.0|^13.0",
+                "illuminate/support": "^11.0|^12.0|^13.0",
+                "php": "^8.2",
+                "symfony/console": "^7.0|^8.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.6",
+                "orchestra/testbench": "^9.15|^10.8|^11.0",
+                "phpstan/phpstan": "^1.10"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Laravel\\Sanctum\\SanctumServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Laravel\\Sanctum\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylor@laravel.com"
+                }
+            ],
+            "description": "Laravel Sanctum provides a featherweight authentication system for SPAs and simple APIs.",
+            "keywords": [
+                "auth",
+                "laravel",
+                "sanctum"
+            ],
+            "support": {
+                "issues": "https://github.com/laravel/sanctum/issues",
+                "source": "https://github.com/laravel/sanctum"
+            },
+            "time": "2026-04-30T11:46:25+00:00"
         },
         {
             "name": "laravel/serializable-closure",
@@ -11288,6 +11468,56 @@
                 }
             ],
             "time": "2025-12-08T11:19:18+00:00"
+        },
+        {
+            "name": "yasin_tgh/laravel-postman",
+            "version": "v1.4.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yasintqvi/laravel-postman.git",
+                "reference": "b25eb67cff2523406073315adced16cc4a4cc62a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yasintqvi/laravel-postman/zipball/b25eb67cff2523406073315adced16cc4a4cc62a",
+                "reference": "b25eb67cff2523406073315adced16cc4a4cc62a",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^10.0|^11.0|^12.0|^13.0",
+                "php": "^8.1",
+                "symfony/console": "^6.0|^7.0|^8.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "logo": "https://i.imgur.com/wt0yMs7.png",
+                    "providers": [
+                        "YasinTgh\\LaravelPostman\\PostmanServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "YasinTgh\\LaravelPostman\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "yasin taghavi",
+                    "email": "mrtqvi@yahoo.com"
+                }
+            ],
+            "description": "A powerful package to automatically generate Postman collections from your Laravel routes with intelligent organization and rich documentation capabilities.",
+            "support": {
+                "issues": "https://github.com/yasintqvi/laravel-postman/issues",
+                "source": "https://github.com/yasintqvi/laravel-postman/tree/v1.4.6"
+            },
+            "time": "2026-04-19T18:57:21+00:00"
         }
     ],
     "aliases": [],

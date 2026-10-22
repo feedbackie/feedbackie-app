@@ -1,0 +1,31 @@
+{
+    "name": "feedbackie/api",
+    "version": "1.0.4",
+    "description": "Integration API for Feedbackie App",
+    "type": "library",
+    "require": {
+        "php": "^8.5",
+        "ext-curl": "*",
+        "feedbackie/core": "*",
+        "laravel/sanctum": "^4.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Feedbackie\\Api\\": "src/",
+            "Tests\\": "tests/"
+        }
+    },
+    "license": "AGPL",
+    "authors": [{
+        "name": "Seriyyy95",
+        "email": "Seriyyy95@gmail.com"
+    }],
+    "minimum-stability": "dev",
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Feedbackie\\Api\\Providers\\FeedbackieApiProvider"
+            ]
+        }
+    }
+}

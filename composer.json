@@ -7,19 +7,23 @@
     "license": "An app for collecting feedback on articles from readers",
     "require": {
         "php": "^8.5",
+        "feedbackie/api": "^1.0",
         "feedbackie/core": "1.0.4",
         "filament/filament": "^4.0",
         "laravel/framework": "^13.0",
+        "laravel/mcp": "^1.1",
+        "laravel/sanctum": "^4.3",
         "laravel/tinker": "^3.0"
     },
     "require-dev": {
         "driftingly/rector-laravel": "^2.3",
+        "fakerphp/faker": "*",
         "laravel/pint": "^1.24",
         "mockery/mockery": "^1.6",
         "nunomaduro/collision": "^8.6",
         "phpunit/phpunit": "^12",
-        "fakerphp/faker": "*",
-        "rector/rector": "^2.4"
+        "rector/rector": "^2.4",
+        "yasin_tgh/laravel-postman": "^1.4"
     },
     "autoload": {
         "psr-4": {
@@ -88,6 +92,10 @@
         {
             "type": "path",
             "url": "packages/feedbackie/core"
+        },
+        {
+            "type": "path",
+            "url": "packages/feedbackie/api"
         }
     ],
     "minimum-stability": "dev",

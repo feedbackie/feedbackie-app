@@ -6,19 +6,17 @@ namespace App\Providers\Filament;
 
 use App\Filament\Auth\Login;
 use Feedbackie\Core\FeedbackieCorePlugin;
+use Feedbackie\Api\FeedbackieApiPlugin;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
-use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
-use Filament\Widgets;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\PreventRequestForgery;
-use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
@@ -56,6 +54,7 @@ class AppPanelProvider extends PanelProvider
             ->login(Login::class)
             ->plugins([
                 FeedbackieCorePlugin::make(),
+                FeedbackieApiPlugin::make(),
             ])
             ->authMiddleware([
                 Authenticate::class,
