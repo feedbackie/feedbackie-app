@@ -71,6 +71,8 @@ ENV COMPOSER_HOME=/var/www/.config/composer
 COPY --chown=www-data ./ ./
 COPY --chown=www-data ./storage /data/storage
 
+RUN chown -R www-data:www-data /var/www
+
 RUN --mount=type=cache,target=/var/www/.cache/composer,id=composer-cache,sharing=locked,uid=1000,gid=1000 \
     composer install --no-interaction --optimize-autoloader --no-dev
 
