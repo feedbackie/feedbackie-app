@@ -1,3 +1,10 @@
+1.0.5
+
+- Update PHP to 8.5.12 to fix vulnerability
+- Added GitHub Action for building docker image
+- Split mistakes reports to different sections in admin panel
+- Added REST API and MCP server for accessing sites and reports
+
 1.0.4
 
 - Update Laravel framework to 13
