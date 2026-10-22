@@ -127,4 +127,9 @@ return [
         'driver' => env('APP_MAINTENANCE_DRIVER', 'file'),
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
+
+    'features' => [
+        'enable_rest_api' => env('ENABLE_REST_API', false),
+        'enable_mcp' => env('ENABLE_MCP', false),
+    ],
 ];

@@ -123,6 +123,8 @@ Here are the environment variables you can use to configure the container:
 - `DB_PASSWORD` - database password.
 - `DB_USERNAME` - database username.
 - `DB_CONNECTION` - database type; available options are `sqlite` and `pgsql`, and the default is `sqlite`.
+- `ENABLE_REST_API` - enables REST API endpoints for reports management
+- `ENABLE_MCP` - enables MCP server, which allows to access sites and reports by AI
 
 ## Widget Options
 

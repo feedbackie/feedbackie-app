@@ -51,8 +51,14 @@ class FeedbackieApiProvider extends ServiceProvider
     public function boot(): void
     {
         $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations');
-        $this->loadRoutesFrom(__DIR__ . '/../../routes/api.php');
-        $this->loadRoutesFrom(__DIR__ . '/../../routes/ai.php');
         $this->loadTranslationsFrom(__DIR__ . '/../../resources/lang', 'feedbackie-api');
+
+        if (config('app.features.enable_rest_api') === true) {
+            $this->loadRoutesFrom(__DIR__ . '/../../routes/api.php');
+        }
+
+        if (config('app.features.enable_mcp') === true) {
+            $this->loadRoutesFrom(__DIR__ . '/../../routes/ai.php');
+        }
     }
 }

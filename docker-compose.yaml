@@ -24,3 +24,5 @@ services:
       - MAIL_HOST=${SMTP_HOST:-}
       - MAIL_PORT=${SMTP_PORT:-}
       - MAIL_PASSWORD=${SMTP_PASSWORD:-}
+      - ENABLE_REST_API=true
+      - ENABLE_MCP=true
