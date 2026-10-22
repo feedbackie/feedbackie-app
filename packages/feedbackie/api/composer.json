@@ -1,6 +1,6 @@
 {
     "name": "feedbackie/api",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "description": "Integration API for Feedbackie App",
     "type": "library",
     "require": {

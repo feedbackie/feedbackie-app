@@ -7,8 +7,8 @@
     "license": "An app for collecting feedback on articles from readers",
     "require": {
         "php": "^8.5",
-        "feedbackie/api": "^1.0",
-        "feedbackie/core": "1.0.4",
+        "feedbackie/api": "^1.0.5",
+        "feedbackie/core": "1.0.5",
         "filament/filament": "^4.0",
         "laravel/framework": "^13.0",
         "laravel/mcp": "^1.1",
